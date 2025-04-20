@@ -71,26 +71,26 @@ Trazendo a aplicação à uma estrutura base limpa e padronizada.
 
 ## 📦 Instalação e Execução
 
-1. Clone o repositório:
+1- Clone o repositório:
 
 ```bash
 git clone https://github.com/seu-usuario/seu-repo.git
 cd seu-repo
 ```
 
-1. Instale as dependências:
+2- Instale as dependências:
 
 ```bash
 npm install
 ```
 
-1. Configure o arquivo `.env`:
+3- Configure o arquivo `.env`:
 
 ```env
-API_BASE_URL=https://noob-api-1.onrender.com/api
+API_BASE_URL=https://link-raiz-da-api
 ```
 
-1. Inicie o app:
+4- Inicie o app:
 
 ```bash
 npm start
@@ -100,30 +100,19 @@ npm start
 
 ## 📚 Documentação
 
-A documentação técnica está disponível na pasta [`docs/`](./docs). Abaixo, alguns arquivos importantes:
+A documentação técnica completa está disponível na pasta [`docs/`](./docs). Abaixo, alguns arquivos importantes:
 
 - [`folderTree.md`](./docs/folderTree.md): estrutura de pastas e rotas
 - [`dependenciesList.md`](./docs/dependenciesList.md): bibliotecas instaladas
-- [`estilização.md`](./docs/estilização.md): temas, tipografia, acessibilidade
+- [`estilização.md`](./docs/styling.md): temas, tipografia, acessibilidade
 - [`commits.md`](./docs/commits.md): padrão de mensagens de commit
-- [`apiRoutes.md`](./docs/apiRoutes.md): rotas da API e exemplos de uso
 
 ---
 
-## 📷 Prints e Demonstrações
+## 🧑‍💻 Autores
 
-(Em breve)
-
----
-
-## 🧑‍💻 Autor
-
-**Rodrigo L.**  
-Aluno da Fatec Mauá  
+**eRodrigoL:** GitHub [https://github.com/eRodrigoL](https://github.com/eRodrigoL)
+**Xketh:** GitHub [https://github.com/Xketh](https://github.com/Xketh)
+**motathais:** GitHub [https://github.com/motathais](https://github.com/motathais)
+Alunos da Fatec Mauá entre 2022 e 2025
 Curso: Tecnologia em Desenvolvimento de Software Multiplataforma
-
----
-
-## 📜 Licença
-
-Este projeto é de uso acadêmico e livre para fins educacionais.
