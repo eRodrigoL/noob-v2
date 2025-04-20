@@ -1,50 +1,129 @@
-# Welcome to your Expo app 👋
+# 🎲 Noob
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Esta é a aplicação para **Trabalho de Conclusão de Curso** do curso superior de **Tecnologia em Desenvolvimento de Software Multiplataforma** da **Fatec Mauá**.
 
-## Get started
+Trata-se de uma aplicação multiplataforma (Android e Web) para o **registro de partidas de jogos de tabuleiro**, oferecendo ao usuário **análises de desempenho** com foco em acessibilidade e usabilidade.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🚀 Tecnologias Utilizadas
 
-2. Start the app
+- **React Native** com TypeScript
+- **Expo Router** (navegação por arquivos)
+- **Zustand** (estado global)
+- **AsyncStorage** (persistência local)
+- **Axios + axios-retry** (consumo de API)
+- **Vercel** (deploy web)
+- **Render** (hospedagem da API REST)
 
-   ```bash
-    npx expo start
-   ```
+## 🎯 Funcionalidades
 
-In the output, you'll find options to open the app in a
+- Cadastro e edição de usuário
+- Cadastro e edição de jogos
+- Registro de partidas (jogadores, pontuação, observações)
+- Visualização de desempenho (estatísticas e gráficos)
+- Acessibilidade: tema claro/escuro/daltônico, troca de fonte e tamanho ajustável
+- Segurança: autenticação e sistema de denúncias
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📁 Estrutura de Pastas
 
-## Get a fresh project
+A navegação é gerenciada por **Expo Router**, e as rotas são determinadas pela estrutura da pasta `src/app`.
 
-When you're ready, run:
+> Veja a árvore completa no arquivo [`docs/folderTree.md`](./docs/folderTree.md)
+
+```ts
+src/
+├── app/                # Rotas (ex: login.tsx, settings.tsx, jogos/index.tsx)
+├── assets/             # Fontes e imagens
+├── components/         # Componentes reutilizáveis
+├── docs/               # Documentação
+├── services/           # Funções de consumo da API
+├── store/              # Zustand (estado global)
+├── theme/              # Tema de cores, tipografia, estilos globais
+├── utils/              # Funções auxiliares
+```
+
+---
+
+## ⚙️ Inicialização do Projeto
+
+Este projeto foi iniciado com o comando:
+
+```bash
+npx create-expo-app@latest
+```
+
+Dando origem auma aplicação básica de exemplo.  
+Em seguida, foi executado o script:
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Trazendo a aplicação à uma estrutura base limpa e padronizada.
 
-## Learn more
+> O projeto é construído com base na documentação oficial do Expo:  
+> [https://docs.expo.dev](https://docs.expo.dev)
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📦 Instalação e Execução
 
-## Join the community
+1. Clone o repositório:
 
-Join our community of developers creating universal apps.
+```bash
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Instale as dependências:
+
+```bash
+npm install
+```
+
+1. Configure o arquivo `.env`:
+
+```env
+API_BASE_URL=https://noob-api-1.onrender.com/api
+```
+
+1. Inicie o app:
+
+```bash
+npm start
+```
+
+---
+
+## 📚 Documentação
+
+A documentação técnica está disponível na pasta [`docs/`](./docs). Abaixo, alguns arquivos importantes:
+
+- [`folderTree.md`](./docs/folderTree.md): estrutura de pastas e rotas
+- [`dependenciesList.md`](./docs/dependenciesList.md): bibliotecas instaladas
+- [`estilização.md`](./docs/estilização.md): temas, tipografia, acessibilidade
+- [`commits.md`](./docs/commits.md): padrão de mensagens de commit
+- [`apiRoutes.md`](./docs/apiRoutes.md): rotas da API e exemplos de uso
+
+---
+
+## 📷 Prints e Demonstrações
+
+(Em breve)
+
+---
+
+## 🧑‍💻 Autor
+
+**Rodrigo L.**  
+Aluno da Fatec Mauá  
+Curso: Tecnologia em Desenvolvimento de Software Multiplataforma
+
+---
+
+## 📜 Licença
+
+Este projeto é de uso acadêmico e livre para fins educacionais.
