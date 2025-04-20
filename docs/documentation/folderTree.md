@@ -1,5 +1,5 @@
 <!-- markdownlint-disable-next-line MD041 -->
-[← Voltar (README)](../)
+[← Voltar (README)](../index.md)
 
 # 📁 Estrutura de Pastas e Rotas (`folderTree.md`)
 
@@ -101,4 +101,4 @@ Cada responsabilidade tem seu lugar claro:
 - `services/`: para comunicação com a API
 - `utils/`: para lógica auxiliar desacoplada
 
-[← Voltar (README)](../)
+[← Voltar (README)](../index.md)
