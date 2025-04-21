@@ -49,9 +49,11 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [ ] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
 ├── 📁 [x] docs/                    // Documentações internas do projeto
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
+│   │   ├── [x] commits.md          // Documenta os commits
 │   │   ├── [x] dependencies.md     // Documenta as dependências
 │   │   ├── [x] folderTree.md       // Documenta a arquitetura de pastas
-│   │   └── [x] prettierConfig.md   // Documenta a configuração do Prettier
+│   │   ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
+│   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
 │   └── [x] index.md                // Sumário da documentação
 ├── 📁 [ ] services/                // Comunicação com a API (axios)
 │   ├── [ ] apiClient.ts            // Instância do Axios com configuração base
@@ -63,6 +65,12 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── [ ] useSettingsStore.ts     // Tema, tamanho de fonte, acessibilidade
 │   └── [ ] useUserStore.ts         // Estado do usuário logado (token, ID, etc.)
 ├── 📁 [x] tests/                   // Testes automatizados da aplicação
+│   ├── [ ] 📁 unit/               // Testes unitários (funções puras, stores, helpers)
+│   │   └── [ ] store.test.ts
+│   ├── 📁 [ ] integration/        // Testes de integração (componentes, lógica de tela)
+│   │   └── [ ] Header.test.tsx
+│   └── 📁 [ ] e2e/                // Testes ponta a ponta (caso use Detox ou Playwright)
+│       └── [ ] login-flow.test.ts
 ├── 📁 [x] theme/                   // Definição de temas e tipografia
 │   ├── [ ] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
 │   ├── [ ] typography.ts           // Tamanhos base e multiplicadores de fonte
