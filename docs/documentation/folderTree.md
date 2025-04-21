@@ -79,10 +79,11 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [ ] utils/                   // Funções utilitárias e helpers
 │   ├── [ ] formatDate.ts           // Formata datas para exibição
 │   └── [ ] validations.ts          // Validações reutilizáveis (ex: e-mail, senha)
+├── [x] .env
 ├── [x] .gitignore                  // Arquivos/pastas ignorados pelo Git
 ├── [x] .prettierignore             // Arquivos ignorados pelo Prettier (*.md para não conflitar com a extensão markdownlint)
 ├── [x] .prettierrc                 // Configura o Prettier (formatação automática de código).
-├── [x] app.json                    // Configuração base do app antes da conversão para app.config.js
+├── [x] app.config.js
 ├── [x] eslint.config.js            // Nova forma de configuração do ESLint (Flat Config).
 ├── [x] package-lock.json           // Gerado automaticamente pelo npm
 ├── [x] package.json                // Lista de dependências e scripts

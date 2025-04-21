@@ -58,10 +58,13 @@ export default [
 
   // Arquivos JS/TS comuns (sem regras específicas para React)
   {
-    files: ['**/*.js'],
+    files: ['**/*.js', '**/*.ts', '**/*.tsx'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        process: 'readonly',
+      },
     },
     rules: {
       ...js.configs.recommended.rules,

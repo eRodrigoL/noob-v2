@@ -78,23 +78,29 @@ export default [
     },
   },
 
+  // Suporte a arquivos JS/TS comuns (ex: app.config.js)
   {
-    files: ['**/*.js'],
+    files: ['**/*.js', '**/*.ts', '**/*.tsx'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        process: 'readonly',
+      },
     },
     rules: {
       ...js.configs.recommended.rules,
     },
   },
 
+  // Integração com Prettier
   {
     rules: {
       ...prettier.rules,
     },
   },
 
+  // Ignora pastas irrelevantes para lint
   {
     ignores: [
       'node_modules/',
@@ -143,6 +149,7 @@ npm run lint
 - Integração automática com `tsconfig.json` (aliases incluídos)
 - Adoção de boas práticas por padrão
 - Suporte completo para código multi-plataforma (Web + Android)
+- Reconhecimento de variáveis globais do Node.js (ex: `process.env`) em arquivos de configuração como `app.config.js`
 
 ---
 
