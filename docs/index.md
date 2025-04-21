@@ -9,7 +9,7 @@
 
 1. [Estrutura de Pastas](./documentation/folderTree.md)
 2. [Dependências Instaladas](./documentation/dependencies.md)
-3. [Estilização (tema, fontes, etc.)](./documentation/styling.md) <!-- (em breve) -->
+3. [Estilização (tema, fontes, etc.)](./documentation/styling.md) <!-- (em breve) --> <!-- (em breve) -->
 4. [Padrão de Commit](./documentation/commits.md)
 
 ---
@@ -18,7 +18,8 @@
 
 1. [Prettier (`.prettierrc`)](./documentation/prettierConfig.md)
 2. [TypeScript (`tsconfig.json`)](./documentation/tsconfig.md)
-3. [ESLint (`eslint.config.js`)](./documentation/eslintConfig.md) <!-- (em breve) -->
+3. [Expo (`app.config.js`)](./documentation/appConfig.md)<!-- (em breve) -->
+4. [ESLint (`eslint.config.js`)](./documentation/eslintConfig.md)
 
 ---
 

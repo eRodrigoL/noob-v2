@@ -51,6 +51,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
 │   │   ├── [x] commits.md          // Documenta os commits
 │   │   ├── [x] dependencies.md     // Documenta as dependências
+│   │   ├── [x] eslintConfig.md
 │   │   ├── [x] folderTree.md       // Documenta a arquitetura de pastas
 │   │   ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
 │   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
