@@ -49,7 +49,9 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [ ] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
 ├── 📁 [x] docs/                    // Documentações internas do projeto
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
-│   │   └── [x] folderTree.md       // Estrutura de pastas e arquivos explicada
+│   │   ├── [x] dependencies.md     // Documenta as dependências
+│   │   ├── [x] folderTree.md       // Documenta a arquitetura de pastas
+│   │   └── [x] prettierConfig.md   // Documenta a configuração do Prettier
 │   └── [x] index.md                // Sumário da documentação
 ├── 📁 [ ] services/                // Comunicação com a API (axios)
 │   ├── [ ] apiClient.ts            // Instância do Axios com configuração base
@@ -70,10 +72,12 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   └── [ ] validations.ts          // Validações reutilizáveis (ex: e-mail, senha)
 ├── [x] .gitignore                  // Arquivos/pastas ignorados pelo Git
 ├── [x] .prettierignore             // Arquivos ignorados pelo Prettier (*.md para não conflitar com a extensão markdownlint)
+├── [x] .prettierrc                 // Configura o Prettier (formatação automática de código).
 ├── [x] app.json                    // Configuração base do app antes da conversão para app.config.js
+├── [x] eslint.config.js            // Nova forma de configuração do ESLint (Flat Config).
 ├── [x] package-lock.json           // Gerado automaticamente pelo npm
 ├── [x] package.json                // Lista de dependências e scripts
-├── [x] README.ms                   // Documento principal com introdução ao projeto
+├── [x] README.ms                   // Documento principal de apresentação do projeto.
 └── [x] tsconfig.json               // Configurações do TypeScript e aliases
 ```
 

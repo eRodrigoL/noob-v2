@@ -21,6 +21,8 @@ npm install --save-dev eslint-plugin-import
 npm install --save-dev eslint-plugin-jsx-a11y
 npm install --save-dev eslint-config-prettier
 npm install --save-dev eslint-import-resolver-typescript
+atual:
+npm install --save-dev prettier
 ```
 
 ---
