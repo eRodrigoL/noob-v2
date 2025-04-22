@@ -24,6 +24,7 @@ npm install --save-dev eslint-import-resolver-typescript
 npm install --save-dev prettier
 npm install dotenv
 # Atual:
+# npx expo export -p web
 ```
 
 ---

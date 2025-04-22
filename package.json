@@ -12,7 +12,8 @@
     "test": "jest --watchAll",
     "lint": "eslint app --ext .ts,.tsx",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "build": "expo export -p web"
   },
   "jest": {
     "preset": "jest-expo"

@@ -88,7 +88,8 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── [x] package-lock.json           // Gerado automaticamente pelo npm
 ├── [x] package.json                // Lista de dependências e scripts
 ├── [x] README.ms                   // Documento principal de apresentação do projeto.
-└── [x] tsconfig.json               // Configurações do TypeScript e aliases
+├── [x] tsconfig.json               // Configurações do TypeScript e aliases
+└── [x] vercel.json               // Configurações do TypeScript e aliases
 ```
 
 ---
