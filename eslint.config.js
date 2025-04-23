@@ -64,6 +64,10 @@ export default [
       sourceType: 'module',
       globals: {
         process: 'readonly',
+        console: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        __DEV__: 'readonly',
       },
     },
     rules: {

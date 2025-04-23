@@ -57,11 +57,12 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
 │   └── [x] index.md                // Sumário da documentação
 ├── 📁 [ ] services/                // Comunicação com a API (axios)
-│   ├── [ ] apiClient.ts            // Instância do Axios com configuração base
+│   ├── [x] apiClient.ts            // Instância do Axios com configuração base
 │   ├── [ ] usuarios.ts             // Funções relacionadas aos usuários
 │   ├── [ ] jogos.ts                // Funções relacionadas aos jogos
 │   ├── [ ] partidas.ts             // Funções relacionadas às partidas
-│   └── [ ] avaliacoes.ts           // Funções relacionadas às estatísticas
+│   ├── [ ] avaliacoes.ts           // Funções relacionadas às estatísticas
+│   └── [xs] warmUpApi.ts
 ├── 📁 [x] store/                   // Gerenciamento de estado com Zustand
 │   ├── [ ] useSettingsStore.ts     // Tema, tamanho de fonte, acessibilidade
 │   └── [ ] useUserStore.ts         // Estado do usuário logado (token, ID, etc.)

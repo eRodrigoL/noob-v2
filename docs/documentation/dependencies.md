@@ -23,8 +23,10 @@ npm install --save-dev eslint-config-prettier
 npm install --save-dev eslint-import-resolver-typescript
 npm install --save-dev prettier
 npm install dotenv
-# Atual:
 # npx expo export -p web
+# Atual:
+npm install axios
+npm install axios-retry
 ```
 
 ---
