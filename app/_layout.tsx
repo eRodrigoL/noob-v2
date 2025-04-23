@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { Stack } from 'expo-router';
-import { warmUpApi } from '@services/warmUpApi';
+import { warmUpApi } from '@hooks/useWarmUpApi';
 
 export default function RootLayout() {
   // Ref para rastrear o estado atual do app (ativo/inativo)
