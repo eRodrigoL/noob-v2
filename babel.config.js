@@ -18,7 +18,6 @@ export default function (api) {
             '@components': './components',
             '@constants': './constants',
             '@docs': './docs',
-            '@hooks': './hooks',
             '@services': './services',
             '@store': './store',
             '@tests': './tests',
