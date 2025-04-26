@@ -37,16 +37,27 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       ├── 📁 [ ] perfil/          // Dados do usuário logado
 │       │   ├── [ ] index.tsx       // Visualização das informações do perfil
 │       │   └── [ ] editar.tsx      // Formulário para edição de perfil
-│       └── 📁 [ ] configuracoes/   // Configurações de personalização do app
+│       └── 📁 [ ] settings/   // Configurações de personalização do app
 │           └── [ ] index.tsx       // Ajustes de tema, fonte, acessibilidade, etc.
 ├── 📁 [ ] assets/                  // Recursos estáticos usados na aplicação
 │   ├── 📁 [ ] fonts/               // Fontes personalizadas
-│   └── 📁 [ ] images/              // Ícones, placeholders e outras imagens
+│   └── 📁 [x] images/              // Ícones, placeholders e outras imagens
+│       ├── 📁 [x] users/           // Fotos e placeholders de usuários
+│       │   └── [ ] userCover.png
+│       ├── 📁 [ ] games/           // Imagens específicas de jogos ou boardgames
+│       ├── 📁 [ ] ui/              // Elementos da interface do app (ícones, ilustrações, etc)
+│       ├── 📁 [x] placeholders/    // Imagens de recurso ausente (ex: "imagem não encontrada")
+│       │   └── [x] unavailable.png
+│       └── 📁 [ ] backgrounds/     // Fundos decorativos ou imagens de tela cheia
 ├── 📁 [ ] components/              // Componentes reutilizáveis e independentes
 │   ├── 📁 [ ] Header/              // Cabeçalho do app, com estilo dinâmico
 │   ├── 📁 [ ] Form/                // Inputs, selects, dropdowns e formulários
 │   └── ...                         // Outros componentes (Cards, Avatares, Botões, etc.)
-├── 📁 [ ] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
+├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
+│   └── 📁 [x] documentation/       // Documentação técnica por tópicos
+│       ├── [x] images.ts
+│       ├── [x] index.ts
+│       └── [x] routes.ts
 ├── 📁 [x] docs/                    // Documentações internas do projeto
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
 │   │   ├── [x] commits.md          // Documenta os commits
@@ -85,6 +96,8 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── [x] .prettierignore             // Arquivos ignorados pelo Prettier (*.md para não conflitar com a extensão markdownlint)
 ├── [x] .prettierrc                 // Configura o Prettier (formatação automática de código).
 ├── [x] app.config.js
+├── [x] babel.config.js
+├── [x] declarations.d.ts
 ├── [x] eslint.config.js            // Nova forma de configuração do ESLint (Flat Config).
 ├── [x] package-lock.json           // Gerado automaticamente pelo npm
 ├── [x] package.json                // Lista de dependências e scripts
