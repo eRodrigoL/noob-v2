@@ -11,6 +11,9 @@ Este documento lista todas as dependências instaladas no projeto, com foco em *
 
 As dependências estão listadas na **ordem exata em que foram instaladas** durante o desenvolvimento. Isso facilita a rastreabilidade de alterações e o diagnóstico de eventuais problemas.
 
+<!-- npx expo export -p web -->
+<!-- usado para dist necessária para hospedar na web-->
+
 ```bash
 npm install --save-dev eslint
 npm install --save-dev @typescript-eslint/eslint-plugin
@@ -23,12 +26,15 @@ npm install --save-dev eslint-config-prettier
 npm install --save-dev eslint-import-resolver-typescript
 npm install --save-dev prettier
 npm install dotenv
-# npx expo export -p web
 npm install axios
 npm install axios-retry
-# Atual:
 npm install zustand
 npm install --save-dev @types/zustand
+npx expo install react-native-svg
+# Atual:
+npm install @react-native-async-storage/async-storage
+npm install react-native-dropdown-select-list
+npm install babel-plugin-module-resolver --save-dev
 ```
 
 ---

@@ -21,9 +21,9 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── 📁 [ ] (auth)/             // Rotas públicas (sem autenticação obrigatória)
 │   │   ├── [ ] login.tsx           // Tela de login do usuário
 │   │   └── [ ] register.tsx        // Tela de registro de novo usuário
-│   └── 📁 [ ] (app)/              // Rotas privadas (após autenticação)
+│   └── 📁 [x] (app)/              // Rotas privadas (após autenticação)
 │       ├── [ ] _layout.tsx         // Layout com checagem de sessão/autenticação
-│       ├── [ ] index.tsx           // Dashboard ou tela principal do app
+│       ├── [x] index.tsx           // Dashboard ou tela principal do app
 │       ├── 📁 [ ] jogos/           // Seção de gerenciamento de jogos
 │       │   ├── [ ] index.tsx       // Listagem de jogos cadastrados
 │       │   ├── [ ] novo.tsx        // Cadastro de novo jogo
@@ -37,16 +37,29 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       ├── 📁 [ ] perfil/          // Dados do usuário logado
 │       │   ├── [ ] index.tsx       // Visualização das informações do perfil
 │       │   └── [ ] editar.tsx      // Formulário para edição de perfil
-│       └── 📁 [ ] configuracoes/   // Configurações de personalização do app
-│           └── [ ] index.tsx       // Ajustes de tema, fonte, acessibilidade, etc.
+│       ├── 📁 [x] settings/       // Configurações de personalização do app
+│       │   └── [x] index.tsx       // Ajustes de tema, fonte, acessibilidade, etc.
+│       └── 📁 [x] test/            // Tela de testes
+│           └── [x] index.tsx       // para testar novas telas
 ├── 📁 [ ] assets/                  // Recursos estáticos usados na aplicação
 │   ├── 📁 [ ] fonts/               // Fontes personalizadas
-│   └── 📁 [ ] images/              // Ícones, placeholders e outras imagens
+│   └── 📁 [x] images/              // Ícones, placeholders e outras imagens
+│       ├── 📁 [x] users/           // Fotos e placeholders de usuários
+│       │   └── [ ] userCover.png
+│       ├── 📁 [ ] games/           // Imagens específicas de jogos ou boardgames
+│       ├── 📁 [ ] ui/              // Elementos da interface do app (ícones, ilustrações, etc)
+│       ├── 📁 [x] placeholders/    // Imagens de recurso ausente (ex: "imagem não encontrada")
+│       │   └── [x] unavailable.png
+│       └── 📁 [ ] backgrounds/     // Fundos decorativos ou imagens de tela cheia
 ├── 📁 [ ] components/              // Componentes reutilizáveis e independentes
 │   ├── 📁 [ ] Header/              // Cabeçalho do app, com estilo dinâmico
 │   ├── 📁 [ ] Form/                // Inputs, selects, dropdowns e formulários
 │   └── ...                         // Outros componentes (Cards, Avatares, Botões, etc.)
-├── 📁 [ ] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
+├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
+│   └── 📁 [x] documentation/       // Documentação técnica por tópicos
+│       ├── [x] images.ts
+│       ├── [x] index.ts // vazio
+│       └── [x] routes.ts // vazio
 ├── 📁 [x] docs/                    // Documentações internas do projeto
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
 │   │   ├── [x] commits.md          // Documenta os commits
@@ -56,15 +69,17 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   │   ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
 │   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
 │   └── [x] index.md                // Sumário da documentação
-├── 📁 [ ] services/                // Comunicação com a API (axios)
+├── 📁 [x] hooks/                // Comunicação com a API (axios)
+│   ├── [x] useTheme.ts
+│   └── [x] useWarmUpApi.ts
+├── 📁 [x] services/                // Comunicação com a API (axios)
 │   ├── [x] apiClient.ts            // Instância do Axios com configuração base
 │   ├── [ ] usuarios.ts             // Funções relacionadas aos usuários
 │   ├── [ ] jogos.ts                // Funções relacionadas aos jogos
 │   ├── [ ] partidas.ts             // Funções relacionadas às partidas
-│   ├── [ ] avaliacoes.ts           // Funções relacionadas às estatísticas
-│   └── [xs] warmUpApi.ts
+│   └── [ ] avaliacoes.ts           // Funções relacionadas às estatísticas
 ├── 📁 [x] store/                   // Gerenciamento de estado com Zustand
-│   ├── [ ] useSettingsStore.ts     // Tema, tamanho de fonte, acessibilidade
+│   ├── [x] useSettingsStore.ts     // Tema, tamanho de fonte, acessibilidade
 │   └── [ ] useUserStore.ts         // Estado do usuário logado (token, ID, etc.)
 ├── 📁 [x] tests/                   // Testes automatizados da aplicação
 │   ├── [ ] 📁 unit/               // Testes unitários (funções puras, stores, helpers)
@@ -74,9 +89,11 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   └── 📁 [ ] e2e/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │       └── [ ] login-flow.test.ts
 ├── 📁 [x] theme/                   // Definição de temas e tipografia
-│   ├── [ ] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
-│   ├── [ ] typography.ts           // Tamanhos base e multiplicadores de fonte
-│   └── [ ] globalStyles.ts         // Estilos comuns reutilizados nos componentes
+│   ├── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
+│   │   ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
+│   │   ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
+│   │   └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
+│   └── [x] index.ts
 ├── 📁 [ ] utils/                   // Funções utilitárias e helpers
 │   ├── [ ] formatDate.ts           // Formata datas para exibição
 │   └── [ ] validations.ts          // Validações reutilizáveis (ex: e-mail, senha)
@@ -85,6 +102,8 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── [x] .prettierignore             // Arquivos ignorados pelo Prettier (*.md para não conflitar com a extensão markdownlint)
 ├── [x] .prettierrc                 // Configura o Prettier (formatação automática de código).
 ├── [x] app.config.js
+├── [x] babel.config.js
+├── [x] declarations.d.ts
 ├── [x] eslint.config.js            // Nova forma de configuração do ESLint (Flat Config).
 ├── [x] package-lock.json           // Gerado automaticamente pelo npm
 ├── [x] package.json                // Lista de dependências e scripts
