@@ -45,7 +45,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── 📁 [ ] fonts/               // Fontes personalizadas
 │   └── 📁 [x] images/              // Ícones, placeholders e outras imagens
 │       ├── 📁 [x] users/           // Fotos e placeholders de usuários
-│       │   └── [ ] userCover.png
+│       │   └── [x] userCover.png
 │       ├── 📁 [ ] games/           // Imagens específicas de jogos ou boardgames
 │       ├── 📁 [ ] ui/              // Elementos da interface do app (ícones, ilustrações, etc)
 │       ├── 📁 [x] placeholders/    // Imagens de recurso ausente (ex: "imagem não encontrada")
@@ -59,7 +59,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   └── 📁 [x] documentation/       // Documentação técnica por tópicos
 │       ├── [x] images.ts
 │       ├── [x] index.ts // vazio
-│       └── [x] routes.ts // vazio
+│       └── [x] routes.ts
 ├── 📁 [x] docs/                    // Documentações internas do projeto
 │   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
 │   │   ├── [x] commits.md          // Documenta os commits
@@ -67,6 +67,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   │   ├── [x] eslintConfig.md
 │   │   ├── [x] folderTree.md       // Documenta a arquitetura de pastas
 │   │   ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
+│   │   ├── [x] styling.md
 │   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
 │   └── [x] index.md                // Sumário da documentação
 ├── 📁 [x] hooks/                // Comunicação com a API (axios)

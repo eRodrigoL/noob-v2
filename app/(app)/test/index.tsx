@@ -2,6 +2,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme, globalStyles } from '@theme/index';
+import { ROUTES } from '@constants/index';
 // import Header from "@components/Header"; // Componente cabeçalho
 
 export default function TestScreen() {
@@ -67,7 +68,7 @@ export default function TestScreen() {
           backgroundColor: colors.backgroundHighlight,
           borderRadius: 8,
         }}
-        onPress={() => router.push('/app/settings')}
+        onPress={() => router.push(ROUTES.SETTINGS)}
       >
         <Text style={{ fontSize: fontSizes.base, fontFamily, color: colors.background }}>
           Ir para Configurações
