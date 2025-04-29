@@ -1,8 +1,9 @@
 // app/test/index.tsx
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme, globalStyles } from '@theme/index';
 import { ROUTES } from '@constants/index';
+import { ButtonHighlight } from '@components/index';
 // import Header from "@components/Header"; // Componente cabeçalho
 
 export default function TestScreen() {
@@ -60,20 +61,7 @@ export default function TestScreen() {
       </Text>
 
       {/* Botão voltar */}
-      <TouchableOpacity
-        style={{
-          marginTop: 20,
-          paddingVertical: 12,
-          paddingHorizontal: 24,
-          backgroundColor: colors.backgroundHighlight,
-          borderRadius: 8,
-        }}
-        onPress={() => router.push(ROUTES.SETTINGS)}
-      >
-        <Text style={{ fontSize: fontSizes.base, fontFamily, color: colors.backgroundHighlight }}>
-          Ir para Configurações
-        </Text>
-      </TouchableOpacity>
+      <ButtonHighlight title="Ir para Configurações" onPress={() => router.push(ROUTES.SETTINGS)} />
     </View>
   );
 }

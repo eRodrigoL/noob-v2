@@ -1,10 +1,11 @@
 // app/settings/index.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useRouter } from 'expo-router';
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
+import { Button, ButtonHighlight } from '@components/index';
 // import Header from "@components/Header";
 
 export default function SettingsScreen() {
@@ -123,35 +124,9 @@ export default function SettingsScreen() {
           marginBottom: 20,
         }}
       >
-        <TouchableOpacity
-          style={[globalStyles.button, { backgroundColor: previewColors.backgroundSemiHighlight }]}
-          onPress={handleDecrease}
-        >
-          <Text
-            style={{
-              fontFamily: previewFontFamily,
-              fontSize: fontSizes.base,
-              color: previewColors.textOnSemiHighlight,
-            }}
-          >
-            A-
-          </Text>
-        </TouchableOpacity>
+        <Button title="A-" onPress={handleDecrease} />
 
-        <TouchableOpacity
-          style={[globalStyles.button, { backgroundColor: previewColors.backgroundSemiHighlight }]}
-          onPress={handleIncrease}
-        >
-          <Text
-            style={{
-              fontFamily: previewFontFamily,
-              fontSize: fontSizes.base,
-              color: previewColors.textOnSemiHighlight,
-            }}
-          >
-            A+
-          </Text>
-        </TouchableOpacity>
+        <Button title="A+" onPress={handleIncrease} />
       </View>
 
       {/* Seleção de Tema de Cores */}
@@ -184,50 +159,11 @@ export default function SettingsScreen() {
       />
 
       {/* Botões de ação */}
-      <TouchableOpacity
-        style={[globalStyles.button, { backgroundColor: previewColors.backgroundHighlight }]}
-        onPress={applyChanges}
-      >
-        <Text
-          style={{
-            fontFamily: previewFontFamily,
-            fontSize: fontSizes.base,
-            color: previewColors.textOnHighlight,
-          }}
-        >
-          Confirmar mudanças
-        </Text>
-      </TouchableOpacity>
+      <ButtonHighlight title="Confirmar mudanças" onPress={applyChanges} />
 
-      <TouchableOpacity
-        style={[globalStyles.button, { backgroundColor: previewColors.backgroundSemiHighlight }]}
-        onPress={restoreLocalDefaults}
-      >
-        <Text
-          style={{
-            fontFamily: previewFontFamily,
-            fontSize: fontSizes.base,
-            color: previewColors.textOnSemiHighlight,
-          }}
-        >
-          Restaurar padrão
-        </Text>
-      </TouchableOpacity>
+      <Button title="Restaurar padrão" onPress={restoreLocalDefaults} />
 
-      <TouchableOpacity
-        style={[globalStyles.button, { backgroundColor: previewColors.backgroundHighlight }]}
-        onPress={() => router.back()}
-      >
-        <Text
-          style={{
-            fontFamily: previewFontFamily,
-            fontSize: fontSizes.base,
-            color: previewColors.textOnHighlight,
-          }}
-        >
-          Voltar
-        </Text>
-      </TouchableOpacity>
+      <Button title="Voltar" onPress={() => router.back()} />
     </View>
   );
 }

@@ -21,7 +21,7 @@ const ButtonHighlight: React.FC<ButtonHighlightProps> = ({ title, onPress }) => 
           globalStyles.textCenteredBold,
           {
             fontFamily,
-            fontSize: fontSizes.large,
+            fontSize: fontSizes.base,
             color: colors.textOnHighlight,
           },
         ]}

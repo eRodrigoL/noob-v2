@@ -52,7 +52,7 @@ export default function RootLayout() {
         headerTintColor: colors.textOnHighlight,
         headerTitleStyle: {
           fontFamily,
-          fontSize: fontSizes.base,
+          fontSize: fontSizes.giant,
         },
         headerTitleAlign: 'center',
       }}
