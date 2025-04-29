@@ -144,6 +144,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
                 {
                   transform: [{ translateX: slideAnim }],
                   backgroundColor: colors.backgroundSemiHighlight,
+                  width: width > 600 ? '30%' : '60%', // ← Responsividade
                 },
               ]}
             >

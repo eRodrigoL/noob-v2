@@ -5,8 +5,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { useRouter } from 'expo-router';
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
-import { Button, ButtonHighlight } from '@components/index';
-// import Header from "@components/Header";
+import { Button, ButtonHighlight, Header } from '@components/index';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -75,7 +74,7 @@ export default function SettingsScreen() {
   return (
     <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
       {/* Componente Header (cabeçalho) */}
-      {/* <Header title="Tela de Teste" /> */}
+      <Header title="Tela de Teste" />
 
       {/* Seleção de Fonte */}
       <Text

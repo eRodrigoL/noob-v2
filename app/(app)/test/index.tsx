@@ -3,8 +3,7 @@ import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme, globalStyles } from '@theme/index';
 import { ROUTES } from '@constants/index';
-import { ButtonHighlight } from '@components/index';
-// import Header from "@components/Header"; // Componente cabeçalho
+import { ButtonHighlight, Header } from '@components/index';
 
 export default function TestScreen() {
   const { colors, fontSizes, fontFamily } = useTheme();
@@ -14,7 +13,7 @@ export default function TestScreen() {
     // Container principal da tela com estilo global e cor de fundo definida pelo tema atual
     <View style={[globalStyles.container, { backgroundColor: colors.backgroundBase }]}>
       {/* Componente Header (cabeçalho) */}
-      {/* <Header title="Tela de Teste" /> */}
+      <Header title="Tela de Teste" />
 
       {/* Texto gigante com fonte, tamanho e cor definidos pelo tema */}
       <Text
