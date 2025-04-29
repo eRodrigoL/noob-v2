@@ -74,7 +74,13 @@ export default function SettingsScreen() {
   return (
     <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
       {/* Componente Header (cabeçalho) */}
-      <Header title="Tela de Teste" />
+      <Header
+        title="Tela de Teste"
+        fontFamilyOverride={previewFontFamily}
+        fontSizeOverride={fontSizes.base}
+        textColorOverride={previewColors.textOnHighlight}
+        backgroundColorOverride={previewColors.backgroundHighlight}
+      />
 
       {/* Seleção de Fonte */}
       <Text
@@ -158,11 +164,32 @@ export default function SettingsScreen() {
       />
 
       {/* Botões de ação */}
-      <ButtonHighlight title="Confirmar mudanças" onPress={applyChanges} />
+      <ButtonHighlight
+        title="Confirmar mudanças"
+        onPress={applyChanges}
+        fontFamilyOverride={previewFontFamily}
+        fontSizeOverride={fontSizes.base}
+        colorOverride={previewColors.textOnHighlight}
+        backgroundColorOverride={previewColors.backgroundHighlight}
+      />
 
-      <Button title="Restaurar padrão" onPress={restoreLocalDefaults} />
+      <Button
+        title="Restaurar padrão"
+        onPress={restoreLocalDefaults}
+        fontFamilyOverride={previewFontFamily}
+        fontSizeOverride={fontSizes.base}
+        colorOverride={previewColors.textOnSemiHighlight}
+        backgroundColorOverride={previewColors.backgroundSemiHighlight}
+      />
 
-      <Button title="Voltar" onPress={() => router.back()} />
+      <Button
+        title="Voltar"
+        onPress={() => router.back()}
+        fontFamilyOverride={previewFontFamily}
+        fontSizeOverride={fontSizes.base}
+        colorOverride={previewColors.textOnSemiHighlight}
+        backgroundColorOverride={previewColors.backgroundSemiHighlight}
+      />
     </View>
   );
 }

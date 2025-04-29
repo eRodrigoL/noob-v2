@@ -1,21 +1,27 @@
-// components/Header.tsx
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'expo-router';
 import { View, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useTheme, stylesHeader } from '@theme/index';
 import { SandwichMenu, ButtonHighlight } from '@components/index';
-// import { ROUTES } from '@constants/index'; // Rotas
 
 interface HeaderProps {
   title: string;
+  fontFamilyOverride?: string;
+  fontSizeOverride?: number;
+  textColorOverride?: string;
+  backgroundColorOverride?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header: React.FC<HeaderProps> = ({
+  title,
+  fontFamilyOverride,
+  fontSizeOverride,
+  textColorOverride,
+  backgroundColorOverride,
+}) => {
   const { colors, fontFamily, fontSizes } = useTheme();
-  // const router = useRouter();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [hasOpenMatch, setHasOpenMatch] = useState(false);
@@ -68,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
     React.useCallback(() => {
       checkAuthentication();
       return () => {
-        setModalVisible(false); // Sempre fecha o modal ao desfocar
+        setModalVisible(false);
       };
     }, []),
   );
@@ -98,9 +104,21 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   };
 
   return (
-    <View style={[stylesHeader.headerContainer, { backgroundColor: colors.backgroundHighlight }]}>
+    <View
+      style={[
+        stylesHeader.headerContainer,
+        { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
+      ]}
+    >
       {/* Botão de menu sanduíche */}
-      <ButtonHighlight title="☰" onPress={handleOpenModal} />
+      <ButtonHighlight
+        title="☰"
+        onPress={handleOpenModal}
+        fontFamilyOverride={fontFamilyOverride}
+        fontSizeOverride={fontSizeOverride}
+        colorOverride={textColorOverride}
+        backgroundColorOverride={backgroundColorOverride}
+      />
 
       {/* Modal do menu */}
       <SandwichMenu visible={modalVisible} onClose={handleCloseModal} />
@@ -110,9 +128,9 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
         style={[
           stylesHeader.title,
           {
-            fontFamily,
-            fontSize: fontSizes.base,
-            color: colors.textOnHighlight,
+            fontFamily: fontFamilyOverride || fontFamily,
+            fontSize: fontSizeOverride || fontSizes.base,
+            color: textColorOverride || colors.textOnHighlight,
           },
         ]}
       >
@@ -121,7 +139,16 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
       {/* Botão 🎲 à direita (se autenticado) */}
       <View style={stylesHeader.iconPlaceholder}>
-        {isAuthenticated && <ButtonHighlight title="🎲" onPress={handleSettingsPress} />}
+        {isAuthenticated && (
+          <ButtonHighlight
+            title="🎲"
+            onPress={handleSettingsPress}
+            fontFamilyOverride={fontFamilyOverride}
+            fontSizeOverride={fontSizeOverride}
+            colorOverride={textColorOverride}
+            backgroundColorOverride={backgroundColorOverride}
+          />
+        )}
       </View>
     </View>
   );
