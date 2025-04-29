@@ -70,7 +70,7 @@ export default function TestScreen() {
         }}
         onPress={() => router.push(ROUTES.SETTINGS)}
       >
-        <Text style={{ fontSize: fontSizes.base, fontFamily, color: colors.background }}>
+        <Text style={{ fontSize: fontSizes.base, fontFamily, color: colors.backgroundHighlight }}>
           Ir para Configurações
         </Text>
       </TouchableOpacity>

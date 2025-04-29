@@ -51,9 +51,12 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       ├── 📁 [x] placeholders/    // Imagens de recurso ausente (ex: "imagem não encontrada")
 │       │   └── [x] unavailable.png
 │       └── 📁 [ ] backgrounds/     // Fundos decorativos ou imagens de tela cheia
-├── 📁 [ ] components/              // Componentes reutilizáveis e independentes
-│   ├── 📁 [ ] Header/              // Cabeçalho do app, com estilo dinâmico
-│   ├── 📁 [ ] Form/                // Inputs, selects, dropdowns e formulários
+├── 📁 [x] components/              // Componentes reutilizáveis e independentes
+│   ├── [x] Button.tsx
+│   ├── [x] ButtonHighlight.tsx
+│   ├── [x] SandwichMenu.tsx
+│   ├── [ ] Header/              // Cabeçalho do app, com estilo dinâmico
+│   ├── [ ] Form/                // Inputs, selects, dropdowns e formulários
 │   └── ...                         // Outros componentes (Cards, Avatares, Botões, etc.)
 ├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
 │   └── 📁 [x] documentation/       // Documentação técnica por tópicos
@@ -90,6 +93,9 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   └── 📁 [ ] e2e/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │       └── [ ] login-flow.test.ts
 ├── 📁 [x] theme/                   // Definição de temas e tipografia
+│   ├── 📁 [x] components/
+│   │   ├── [x] SandwichMenu.ts
+│   │   └── [ ] ...
 │   ├── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │   │   ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
 │   │   ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte

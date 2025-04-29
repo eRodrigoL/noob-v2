@@ -3,8 +3,12 @@ import { useEffect, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { Stack } from 'expo-router';
 import { warmUpApi } from '@hooks/useWarmUpApi';
+import { useTheme } from '@theme/index';
 
 export default function RootLayout() {
+  // Para uso da estilização dinâmica
+  const { colors, fontFamily, fontSizes } = useTheme();
+
   // Ref para rastrear o estado atual do app (ativo/inativo)
   const appState = useRef<AppStateStatus>(AppState.currentState);
 
@@ -39,5 +43,19 @@ export default function RootLayout() {
   }, []);
 
   // Renderiza as rotas empilhadas (Stack) normalmente
-  return <Stack />;
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.backgroundHighlight,
+        },
+        headerTintColor: colors.textOnHighlight,
+        headerTitleStyle: {
+          fontFamily,
+          fontSize: fontSizes.base,
+        },
+        headerTitleAlign: 'center',
+      }}
+    />
+  );
 }
