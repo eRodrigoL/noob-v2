@@ -18,7 +18,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── [x] _layout.tsx             // Layout global com provedores (SafeArea, Theme, etc.)
 │   ├── [x] index.tsx               // Tela inicial (pode redirecionar para login ou dashboard)
 │   ├── [ ] +not-found.tsx          // Tela para rotas inexistentes (404)
-│   ├── 📁 [ ] (auth)/             // Rotas públicas (sem autenticação obrigatória)
+│   ├── 📁 [x] (auth)/             // Rotas públicas (sem autenticação obrigatória)
 │   │   ├── [ ] login.tsx           // Tela de login do usuário
 │   │   └── [ ] register.tsx        // Tela de registro de novo usuário
 │   └── 📁 [x] (app)/              // Rotas privadas (após autenticação)
@@ -101,8 +101,9 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   │   ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
 │   │   └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
 │   └── [x] index.ts
-├── 📁 [ ] utils/                   // Funções utilitárias e helpers
+├── 📁 [x] utils/                   // Funções utilitárias e helpers
 │   ├── [ ] formatDate.ts           // Formata datas para exibição
+│   ├── [x] logger.ts
 │   └── [ ] validations.ts          // Validações reutilizáveis (ex: e-mail, senha)
 ├── [x] .env
 ├── [x] .gitignore                  // Arquivos/pastas ignorados pelo Git

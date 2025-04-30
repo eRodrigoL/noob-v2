@@ -15,12 +15,10 @@ const globalStyles = StyleSheet.create({
   // Quadro ou card genérico com sombra leve
   card: {
     borderRadius: 8,
+    boxShadow: '0px 2px 4px', // sombra equivalente para Web
     elevation: 2, // sombra no Android
     marginVertical: 10,
     padding: 15,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
   },
 
   // Container princípal das telas

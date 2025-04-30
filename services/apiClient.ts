@@ -50,9 +50,9 @@ axiosRetry(apiClient, {
 // 4. Tratamento de erro (exemplo com try/catch)
 // try {
 //   const response = await apiClient.get('/partidas');
-//   console.log('✅ Dados:', response.data);
+//   usar utils/logger ('✅ Dados:', response.data);
 // } catch (error) {
-//   console.error('❌ Erro ao buscar partidas:', error);
+//   usar utils/logger ('❌ Erro ao buscar partidas:', error);
 // }
 
 // ---

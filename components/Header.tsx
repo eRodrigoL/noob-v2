@@ -4,7 +4,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useTheme, stylesHeader } from '@theme/index';
-import { SandwichMenu, ButtonHighlight } from '@components/index';
+import SandwichMenu from '@components/SandwichMenu';
+import ButtonHighlight from '@components/ButtonHighlight';
 
 interface HeaderProps {
   title: string;

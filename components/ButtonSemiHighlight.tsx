@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from 'react-native';
 import { useTheme, globalStyles } from '@theme/index';
 
 // Define as props, agora incluindo overrides opcionais
-interface ButtonProps {
+interface ButtonSemiHighlightProps {
   title: string;
   onPress: () => void;
   fontFamilyOverride?: string;
@@ -12,7 +12,7 @@ interface ButtonProps {
   backgroundColorOverride?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const ButtonSemiHighlight: React.FC<ButtonSemiHighlightProps> = ({
   title,
   onPress,
   fontFamilyOverride,
@@ -47,4 +47,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default ButtonSemiHighlight;

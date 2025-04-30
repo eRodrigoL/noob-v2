@@ -5,7 +5,7 @@ import { Modal, View, Animated, Dimensions, TouchableWithoutFeedback, Alert } fr
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useTheme, stylesSandwichMenu } from '@theme/index';
-import { ButtonHighlight } from '@components/index';
+import ButtonHighlight from '@components/ButtonHighlight';
 import { ROUTES } from '@constants/index';
 
 interface ModalProps {

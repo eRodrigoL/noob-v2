@@ -5,7 +5,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { useRouter } from 'expo-router';
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
-import { Button, ButtonHighlight, Header } from '@components/index';
+import { ButtonSemiHighlight, ButtonHighlight, Header } from '@components/index';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -129,9 +129,9 @@ export default function SettingsScreen() {
           marginBottom: 20,
         }}
       >
-        <Button title="A-" onPress={handleDecrease} />
+        <ButtonSemiHighlight title="A-" onPress={handleDecrease} />
 
-        <Button title="A+" onPress={handleIncrease} />
+        <ButtonSemiHighlight title="A+" onPress={handleIncrease} />
       </View>
 
       {/* Seleção de Tema de Cores */}
@@ -173,7 +173,7 @@ export default function SettingsScreen() {
         backgroundColorOverride={previewColors.backgroundHighlight}
       />
 
-      <Button
+      <ButtonSemiHighlight
         title="Restaurar padrão"
         onPress={restoreLocalDefaults}
         fontFamilyOverride={previewFontFamily}
@@ -182,7 +182,7 @@ export default function SettingsScreen() {
         backgroundColorOverride={previewColors.backgroundSemiHighlight}
       />
 
-      <Button
+      <ButtonSemiHighlight
         title="Voltar"
         onPress={() => router.back()}
         fontFamilyOverride={previewFontFamily}
