@@ -1,7 +1,15 @@
 // components/SandwichMenu.tsx
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Modal, View, Animated, Dimensions, TouchableWithoutFeedback, Alert } from 'react-native';
+import {
+  Modal,
+  View,
+  Animated,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Alert,
+  Platform,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useTheme, stylesSandwichMenu } from '@theme/index';
@@ -88,13 +96,13 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
       Animated.timing(slideAnim, {
         toValue: 0,
         duration: 500,
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }).start();
     } else {
       Animated.timing(slideAnim, {
         toValue: -width,
         duration: 500,
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }).start(() => onClose());
     }
   }, [visible]);
@@ -111,7 +119,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
     Animated.timing(slideAnim, {
       toValue: -width,
       duration: 500,
-      useNativeDriver: true,
+      useNativeDriver: Platform.OS !== 'web',
     }).start(() => onClose());
   };
 
