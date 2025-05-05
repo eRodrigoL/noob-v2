@@ -1,8 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { Pressable, Text } from 'react-native';
 import { useTheme, globalStyles } from '@theme/index';
 
-// Define as props, agora com opções de override para pré-visualização
 interface ButtonHighlightProps {
   title: string;
   onPress: () => void;
@@ -23,12 +22,15 @@ const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
   const { colors, fontFamily, fontSizes } = useTheme();
 
   return (
-    <TouchableOpacity
-      style={[
-        globalStyles.button,
-        { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
-      ]}
+    <Pressable
       onPress={onPress}
+      style={({ pressed }) => [
+        globalStyles.button,
+        {
+          backgroundColor: backgroundColorOverride || colors.backgroundHighlight,
+          opacity: pressed ? 0.8 : 1, // efeito visual ao pressionar
+        },
+      ]}
     >
       <Text
         style={[
@@ -42,7 +44,7 @@ const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
       >
         {title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

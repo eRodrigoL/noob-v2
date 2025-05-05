@@ -1,8 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { Pressable, Text } from 'react-native';
 import { useTheme, globalStyles } from '@theme/index';
 
-// Define as props, agora incluindo overrides opcionais
 interface ButtonSemiHighlightProps {
   title: string;
   onPress: () => void;
@@ -20,16 +19,18 @@ const ButtonSemiHighlight: React.FC<ButtonSemiHighlightProps> = ({
   colorOverride,
   backgroundColorOverride,
 }) => {
-  // Usa o hook useTheme para obter o estilo dinâmico global
   const { colors, fontFamily, fontSizes } = useTheme();
 
   return (
-    <TouchableOpacity
-      style={[
-        globalStyles.button,
-        { backgroundColor: backgroundColorOverride || colors.backgroundSemiHighlight },
-      ]}
+    <Pressable
       onPress={onPress}
+      style={({ pressed }) => [
+        globalStyles.button,
+        {
+          backgroundColor: backgroundColorOverride || colors.backgroundSemiHighlight,
+          opacity: pressed ? 0.85 : 1, // Efeito de toque leve
+        },
+      ]}
     >
       <Text
         style={[
@@ -43,7 +44,7 @@ const ButtonSemiHighlight: React.FC<ButtonSemiHighlightProps> = ({
       >
         {title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

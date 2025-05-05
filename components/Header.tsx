@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
           stylesHeader.title,
           {
             fontFamily: fontFamilyOverride || fontFamily,
-            fontSize: fontSizeOverride || fontSizes.base,
+            fontSize: fontSizeOverride || fontSizes.giant,
             color: textColorOverride || colors.textOnHighlight,
           },
         ]}

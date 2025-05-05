@@ -1,4 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width: screenWidth } = Dimensions.get('window');
+
+// Define a largura responsiva baseada na largura da tela
+const modalWidth = screenWidth > 600 ? '30%' : '60%';
 
 const stylesSandwichMenu = StyleSheet.create({
   buttonContainer: {
@@ -13,7 +18,7 @@ const stylesSandwichMenu = StyleSheet.create({
     height: '100%',
     justifyContent: 'flex-start',
     padding: 20,
-    width: '60%',
+    width: modalWidth,
   },
 });
 
