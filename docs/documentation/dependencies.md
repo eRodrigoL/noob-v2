@@ -31,10 +31,11 @@ npm install axios-retry
 npm install zustand
 npm install --save-dev @types/zustand
 npx expo install react-native-svg
-# Atual:
 npm install @react-native-async-storage/async-storage
 npm install react-native-dropdown-select-list
 npm install babel-plugin-module-resolver --save-dev
+# Atual:
+npm install -g expo
 ```
 
 ---
