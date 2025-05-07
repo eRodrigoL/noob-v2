@@ -34,8 +34,9 @@ npx expo install react-native-svg
 npm install @react-native-async-storage/async-storage
 npm install react-native-dropdown-select-list
 npm install babel-plugin-module-resolver --save-dev
-# Atual:
 npm install -g expo
+# Atual:
+npm install react-native-toast-message
 ```
 
 ---

@@ -1,69 +1,95 @@
+// app/login.tsx
+
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, TextInput, Alert } from 'react-native';
-import axios from 'axios';
+import { View, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+
 import { globalStyles, useTheme } from '@theme/index';
 import { ROUTES } from '@constants/index';
 import { ButtonHighlight, ButtonSemiHighlight, Header } from '@components/index';
+import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
 
-// verificar: precisa manter a API acordada em todas as telas
-
 const Login: React.FC = () => {
-  const router = useRouter(); // Hook para manipular rotas
+  const router = useRouter();
   const { colors, fontFamily, fontSizes } = useTheme();
 
-  const [apelido, setApelido] = useState(''); // Estado para armazenar o apelido do usuário
-  const [senha, setSenha] = useState(''); // Estado para armazenar a senha do usuário
+  // Estados locais para armazenar os dados de login
+  const [apelido, setApelido] = useState('');
+  const [senha, setSenha] = useState('');
 
-  // Função de login, que verifica as credenciais do usuário
+  /**
+   * Realiza o login do usuário, enviando as credenciais para a API.
+   * Se for bem-sucedido, armazena o token e redireciona para a tela principal.
+   */
   const handleLogin = async () => {
-    // Verifica se os campos de apelido e senha foram preenchidos
+    // 🚫 Verifica se os campos foram preenchidos
     if (!apelido || !senha) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.'); // Exibe um alerta caso os campos estejam vazios
+      Toast.show({
+        type: 'error',
+        text1: 'Erro',
+        text2: 'Por favor, preencha todos os campos.',
+      });
       return;
     }
 
+    // ✅ Garante que o apelido esteja no formato esperado (prefixado com "@")
     const apelidoCorrigido = `@${apelido}`;
 
     try {
-      // Faz uma requisição para o backend para autenticação
-      const response = await axios.post('https://api-noob-react.onrender.com/api/login', {
+      // ℹ️ Informa ao usuário que a API pode estar iniciando (Render gratuito)
+      Toast.show({
+        type: 'info',
+        text1: 'Aguarde um momento',
+        text2: 'Estamos iniciando o servidor...',
+      });
+
+      // 🔐 Envia os dados para autenticação
+      const response = await apiClient.post('/login', {
         apelido: apelidoCorrigido,
         senha,
       });
 
-      // Se o status da resposta for 200, login é bem-sucedido
+      // ✅ Se a resposta for bem-sucedida (status 200), continua
       if (response.status === 200) {
-        const { token, usuario, msg } = response.data; // Extrai o token, informações do usuário e mensagem da resposta
+        const { token, usuario, msg } = response.data;
 
-        // Armazena o token e o ID do usuário no armazenamento local
+        // 💾 Armazena o token JWT e o ID do usuário localmente
         await AsyncStorage.multiSet([
           ['token', token],
-          ['userId', usuario.id], // Armazena o ID do usuário
+          ['userId', usuario.id],
         ]);
 
-        Alert.alert('Sucesso', msg, [
-          {
-            text: 'OK',
-            onPress: () => {
-              router.replace(ROUTES.TEST);
-            },
-          },
-        ]);
+        // ✅ Notifica sucesso com a mensagem da API
+        Toast.show({
+          type: 'success',
+          text1: 'Sucesso',
+          text2: msg,
+        });
+
+        // 🧭 Redireciona para a tela principal da aplicação
+        router.replace(ROUTES.TEST);
       }
-    } catch (error) {
-      logger.error('Erro no login', error);
-      Alert.alert('Erro', 'Apelido ou senha incorreta. Tente novamente!');
+    } catch (error: unknown) {
+      // ❌ Em caso de falha (ex: credenciais incorretas ou timeout)
+      logger.error('Erro no login:', error);
+      Toast.show({
+        type: 'error',
+        text1: 'Erro ao fazer login',
+        text2: 'Apelido ou senha incorreta. Tente novamente!',
+      });
     }
   };
 
   return (
     <View style={[globalStyles.container, { backgroundColor: colors.backgroundBase }]}>
+      {/* Cabeçalho customizado da tela */}
       <Header title="Login" />
+
       <View>
-        {/* Título da página com ícone */}
+        {/* Título da aplicação */}
         <Text
           style={{
             fontFamily,
@@ -76,11 +102,10 @@ const Login: React.FC = () => {
           Noob 🎲
         </Text>
 
-        {/* Campo de texto para inserção do apelido */}
+        {/* Campo de apelido */}
         <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
           Apelido:
         </Text>
-
         <TextInput
           style={{
             backgroundColor: colors.backgroundSemiHighlight,
@@ -91,20 +116,16 @@ const Login: React.FC = () => {
             padding: 10,
             marginBottom: 16,
           }}
-          placeholder="Insira seu nome de usário"
-          value={`@${apelido}`}
-          onChangeText={(text) => {
-            const sanitizedText = text.replace('@', ''); // Remove qualquer '@'
-            setApelido(sanitizedText);
-          }}
+          placeholder="usuário"
+          value={`@${apelido}`} // Exibe com o @, mas armazena sem ele
+          onChangeText={(text) => setApelido(text.replace('@', ''))}
           autoCapitalize="none"
         />
 
-        {/* Campo de texto para inserção da senha */}
+        {/* Campo de senha */}
         <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
           Senha:
         </Text>
-
         <TextInput
           style={{
             backgroundColor: colors.backgroundSemiHighlight,
@@ -115,35 +136,23 @@ const Login: React.FC = () => {
             padding: 10,
             marginBottom: 16,
           }}
-          secureTextEntry // Define o campo como senha, ocultando o texto
+          secureTextEntry // Oculta os caracteres digitados
           value={senha}
-          onChangeText={setSenha} // Atualiza o estado da senha conforme o usuário digita
-          placeholder=""
+          onChangeText={setSenha}
+          placeholder="senha"
         />
 
-        {/* Botão para realizar o login */}
-        <ButtonHighlight
-          title="Entrar"
-          onPress={() => {
-            handleLogin();
-          }}
-        />
+        {/* Botão principal: login */}
+        <ButtonHighlight title="Entrar" onPress={handleLogin} />
 
-        {/* Botão para cancelar o login */}
-        <ButtonSemiHighlight
-          title="Voltar"
-          onPress={() => {
-            router.back();
-          }}
-        />
+        {/* Botão secundário: voltar para a tela anterior */}
+        <ButtonSemiHighlight title="Voltar" onPress={() => router.back()} />
 
-        {/* Texto e link para redirecionar para a tela de cadastro */}
+        {/* Opção de cadastro (link futuro) */}
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
             Ainda não tem uma conta?
           </Text>
-
-          {/* Trocar por link e criar uma cor de texto para substituir backgroundHighlight */}
           <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.backgroundHighlight }}>
             Cadastre-se
           </Text>
