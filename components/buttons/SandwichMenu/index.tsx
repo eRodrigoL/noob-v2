@@ -160,6 +160,10 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
                     // TODO: adicionar rota de perfil
                   }}
                 />
+                <ButtonHighlight
+                  title="Configurações"
+                  onPress={() => handleNavigate(ROUTES.SETTINGS)}
+                />
                 <ButtonHighlight title="Jogar" onPress={handlePlayPress} />
                 <ButtonHighlight title="Sair" onPress={handleLogout} />
               </>
