@@ -2,12 +2,12 @@ import React, { useEffect, useState, ReactNode } from 'react';
 import { View, Text, ScrollView, ViewStyle, ScrollViewProps } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTheme, stylesHeader } from '@theme/index';
-import SandwichMenu from '@components/buttons/SandwichMenu';
-import ButtonHighlight from '@components/buttons/ButtonHighlight';
+import { useTheme } from '@theme/index';
+import stylesHeaderLayout from './styles';
+import SandwichMenu from '@components/buttons/SandwichMenu/index';
+import ButtonHighlight from '@components/buttons/ButtonHighlight/index';
 import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 
 interface HeaderLayoutProps {
@@ -116,10 +116,10 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <View
         style={[
-          stylesHeader.headerContainer,
+          stylesHeaderLayout.headerContainer,
           { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
         ]}
       >
@@ -139,7 +139,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         {/* Título centralizado */}
         <Text
           style={[
-            stylesHeader.title,
+            stylesHeaderLayout.title,
             {
               fontFamily: fontFamilyOverride || fontFamily,
               fontSize: fontSizeOverride || fontSizes.giant,
@@ -151,7 +151,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         </Text>
 
         {/* Botão 🎲 à direita (visível apenas se logado) */}
-        <View style={stylesHeader.iconPlaceholder}>
+        <View style={stylesHeaderLayout.iconPlaceholder}>
           {isAuthenticated && (
             <ButtonHighlight
               title="🎲"
@@ -177,7 +177,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
       ) : (
         <View style={[{ flex: 1, padding: 16 }, contentStyle]}>{children}</View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -56,13 +56,21 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [x] components/              // Componentes reutilizáveis e independentes
 │   ├── [x] index.tsx
 │   ├── 📁 [x] buttons/              // Ícones, placeholders e outras imagens
-│   │   ├── [x] ButtonHighlight.tsx
-│   │   ├── [x] ButtonSemiHighlight.tsx
-│   │   └── [x] SandwichMenu.tsx
+│   │   ├── 📁 [x] ButtonHighlight.tsx
+│   │   │   └── [x] index.tsx
+│   │   ├── 📁 [x] ButtonSemiHighlight.tsx
+│   │   │   └── [x] index.tsx
+│   │   └── 📁 [x] SandwichMenu.tsx
+│   │       ├── [x] index.tsx
+│   │       └── [x] styles.tsx
 │   ├── 📁 [x] cards/
-│   │   └── [x] GameCrad.tsx
+│   │   └── 📁 [x] GameCrad.tsx
+│   │       ├── [x] index.tsx
+│   │       └── [x] styles.tsx
 │   └── 📁 [x] layouts/
-│       └── [x] HeaderLayout.tsx
+│       └── 📁 [x] HeaderLayout.tsx
+│           ├── [x] index.tsx
+│           └── [x] styles.tsx
 ├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
 │   ├── [x] images.ts
 │   ├── [x] index.ts
@@ -99,10 +107,6 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       └── [ ] login-flow.test.ts
 ├── 📁 [x] theme/                   // Definição de temas e tipografia
 │   ├── [x] index.ts
-│   ├── 📁 [x] components/
-│   │   ├── [x] GameCard.styles.ts
-│   │   ├── [x] Header.styles.ts
-│   │   └── [x] SandwichMenu.styles.ts
 │   └── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │       ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
 │       ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte

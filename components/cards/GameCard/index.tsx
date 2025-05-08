@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Image, Pressable } from 'react-native';
-import { stylesGameCard } from '@theme/index';
+import stylesGameCard from './styles';
 import { images } from '@constants/index';
 
 interface GameCardProps {
