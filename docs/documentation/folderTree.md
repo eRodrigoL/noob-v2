@@ -19,14 +19,14 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── [x] index.tsx               // Tela inicial (pode redirecionar para login ou dashboard)
 │   ├── [ ] +not-found.tsx          // Tela para rotas inexistentes (404)
 │   ├── 📁 [x] (auth)/             // Rotas públicas (sem autenticação obrigatória)
-│   │   ├── [ ] login.tsx           // Tela de login do usuário
+│   │   ├── [x] login.tsx           // Tela de login do usuário
 │   │   └── [ ] register.tsx        // Tela de registro de novo usuário
 │   └── 📁 [x] (app)/              // Rotas privadas (após autenticação)
 │       ├── [ ] _layout.tsx         // Layout com checagem de sessão/autenticação
 │       ├── [x] index.tsx           // Dashboard ou tela principal do app
-│       ├── 📁 [ ] jogos/           // Seção de gerenciamento de jogos
-│       │   ├── [ ] index.tsx       // Listagem de jogos cadastrados
-│       │   ├── [ ] novo.tsx        // Cadastro de novo jogo
+│       ├── 📁 [x] boardgame/           // Seção de gerenciamento de jogos
+│       │   ├── [x] index.tsx       // Listagem de jogos cadastrados
+│       │   ├── [ ] registerGame.tsx        // Cadastro de novo jogo
 │       │   └── [ ] [id].tsx        // Edição ou visualização de um jogo específico
 │       ├── 📁 [ ] partidas/        // Registro e histórico de partidas
 │       │   ├── [ ] index.tsx       // Listagem de partidas do usuário
@@ -44,6 +44,8 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [ ] assets/                  // Recursos estáticos usados na aplicação
 │   ├── 📁 [ ] fonts/               // Fontes personalizadas
 │   └── 📁 [x] images/              // Ícones, placeholders e outras imagens
+│       ├── 📁 [x] boardgame/           
+│       │   └── [x] loading.gif
 │       ├── 📁 [x] users/           // Fotos e placeholders de usuários
 │       │   └── [x] userCover.png
 │       ├── 📁 [ ] games/           // Imagens específicas de jogos ou boardgames
@@ -52,28 +54,31 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       │   └── [x] unavailable.png
 │       └── 📁 [ ] backgrounds/     // Fundos decorativos ou imagens de tela cheia
 ├── 📁 [x] components/              // Componentes reutilizáveis e independentes
-│   ├── [x] Button.tsx
-│   ├── [x] ButtonHighlight.tsx
-│   ├── [x] SandwichMenu.tsx
-│   ├── [ ] Header/              // Cabeçalho do app, com estilo dinâmico
-│   ├── [ ] Form/                // Inputs, selects, dropdowns e formulários
-│   └── ...                         // Outros componentes (Cards, Avatares, Botões, etc.)
+│   ├── [x] index.tsx
+│   ├── 📁 [x] buttons/              // Ícones, placeholders e outras imagens
+│   │   ├── [x] ButtonHighlight.tsx
+│   │   ├── [x] ButtonSemiHighlight.tsx
+│   │   └── [x] SandwichMenu.tsx
+│   ├── 📁 [x] cards/
+│   │   └── [x] GameCrad.tsx
+│   └── 📁 [x] layouts/
+│       └── [x] HeaderLayout.tsx
 ├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
-│   └── 📁 [x] documentation/       // Documentação técnica por tópicos
-│       ├── [x] images.ts
-│       ├── [x] index.ts // vazio
-│       └── [x] routes.ts
+│   ├── [x] images.ts
+│   ├── [x] index.ts
+│   └── [x] routes.ts
 ├── 📁 [x] docs/                    // Documentações internas do projeto
-│   ├── 📁 [x] documentation/       // Documentação técnica por tópicos
-│   │   ├── [x] commits.md          // Documenta os commits
-│   │   ├── [x] dependencies.md     // Documenta as dependências
-│   │   ├── [x] eslintConfig.md
-│   │   ├── [x] folderTree.md       // Documenta a arquitetura de pastas
-│   │   ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
-│   │   ├── [x] styling.md
-│   │   └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
-│   └── [x] index.md                // Sumário da documentação
+│   ├── [x] index.md                // Sumário da documentação
+│   └── 📁 [x] documentation/       // Documentação técnica por tópicos
+│       ├── [x] commits.md          // Documenta os commits
+│       ├── [x] dependencies.md     // Documenta as dependências
+│       ├── [x] eslintConfig.md
+│       ├── [x] folderTree.md       // Documenta a arquitetura de pastas
+│       ├── [x] prettierConfig.md   // Documenta a configuração do Prettier
+│       ├── [x] styling.md
+│       └── [x] tsconfig.md         // Documenta a configuração do TypeScript e seus aliases
 ├── 📁 [x] hooks/                // Comunicação com a API (axios)
+│   ├── [x] useKeepApiAwake.ts
 │   ├── [x] useTheme.ts
 │   └── [x] useWarmUpApi.ts
 ├── 📁 [x] services/                // Comunicação com a API (axios)
@@ -85,7 +90,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 ├── 📁 [x] store/                   // Gerenciamento de estado com Zustand
 │   ├── [x] useSettingsStore.ts     // Tema, tamanho de fonte, acessibilidade
 │   └── [ ] useUserStore.ts         // Estado do usuário logado (token, ID, etc.)
-├── 📁 [x] tests/                   // Testes automatizados da aplicação
+├── 📁 [ ] tests/                   // Testes automatizados da aplicação
 │   ├── [ ] 📁 unit/               // Testes unitários (funções puras, stores, helpers)
 │   │   └── [ ] store.test.ts
 │   ├── 📁 [ ] integration/        // Testes de integração (componentes, lógica de tela)
@@ -93,14 +98,15 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   └── 📁 [ ] e2e/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │       └── [ ] login-flow.test.ts
 ├── 📁 [x] theme/                   // Definição de temas e tipografia
+│   ├── [x] index.ts
 │   ├── 📁 [x] components/
-│   │   ├── [x] SandwichMenu.ts
-│   │   └── [ ] ...
-│   ├── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
-│   │   ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
-│   │   ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
-│   │   └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
-│   └── [x] index.ts
+│   │   ├── [x] GameCard.styles.ts
+│   │   ├── [x] Header.styles.ts
+│   │   └── [x] SandwichMenu.styles.ts
+│   └── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
+│       ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
+│       ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
+│       └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
 ├── 📁 [x] utils/                   // Funções utilitárias e helpers
 │   ├── [ ] formatDate.ts           // Formata datas para exibição
 │   ├── [x] logger.ts

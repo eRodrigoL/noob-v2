@@ -4,9 +4,11 @@
 
 import userCover from '@assets/images/users/userCover.png';
 import unavailable from '@assets/images/placeholders/unavailable.png';
+import loading from '@assets/images/boardgames/loading.gif';
 
 // 🎯 Exporta tudo agrupado
 export const images = {
   userCover,
   unavailable,
+  loading,
 };

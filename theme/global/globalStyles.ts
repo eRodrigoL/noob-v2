@@ -21,9 +21,23 @@ const globalStyles = StyleSheet.create({
     padding: 15,
   },
 
+  centered: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24,
+  },
+
   // Container princípal das telas
   container: {
     flex: 1, // Ocupa todo o espaço disponível na tela
+  },
+
+  loadingImage: {
+    height: 100,
+    marginBottom: 20,
+    resizeMode: 'contain',
+    width: 100,
   },
 
   // Texto centralizado (exp.: botões secundários, descrições de imagens e gráficos, etc.)

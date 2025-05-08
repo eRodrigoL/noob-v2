@@ -1,4 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { useTheme } from '@theme/index';
+
+const { colors } = useTheme();
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -15,6 +18,7 @@ const stylesSandwichMenu = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   modalView: {
+    backgroundColor: colors.backgroundSemiHighlight,
     height: '100%',
     justifyContent: 'flex-start',
     padding: 20,

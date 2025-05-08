@@ -11,6 +11,7 @@ import reactNative from 'eslint-plugin-react-native'; // Regras para React Nativ
 import importPlugin from 'eslint-plugin-import'; // Verificação de imports
 import jsxA11y from 'eslint-plugin-jsx-a11y'; // Acessibilidade para JSX
 import prettier from 'eslint-config-prettier'; // Integração com Prettier (desativa conflitos)
+import globals from 'globals';
 
 export default [
   // Parser padrão para arquivos TypeScript
@@ -63,11 +64,13 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        process: 'readonly',
-        console: 'readonly',
-        setInterval: 'readonly',
+        ...globals.browser, // 🌐 Suporte a ambiente web (window, setTimeout, etc.)
+        ...globals['react-native'], // 📱 Suporte a ambiente React Native
+        __DEV__: 'readonly', // ✅ Modo de desenvolvimento (usado em React Native)
         clearInterval: 'readonly',
-        __DEV__: 'readonly',
+        console: 'readonly',
+        process: 'readonly',
+        setInterval: 'readonly',
       },
     },
     rules: {

@@ -10,4 +10,5 @@ export { default as globalStyles } from '@theme/global/globalStyles';
 
 // Estilos próprio dos componentes
 export { default as stylesSandwichMenu } from '@theme/components/SandwichMenu.styles';
+export { default as stylesGameCard } from '@theme/components/GameCard.styles';
 export { default as stylesHeader } from '@theme/components/Header.styles';

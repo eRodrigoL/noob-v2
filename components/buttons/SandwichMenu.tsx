@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { Modal, View, Animated, Dimensions, Pressable, Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useTheme, stylesSandwichMenu } from '@theme/index';
-import ButtonHighlight from '@components/ButtonHighlight';
+import { stylesSandwichMenu } from '@theme/index';
+import ButtonHighlight from '@components/buttons/ButtonHighlight';
 import { ROUTES } from '@constants/index';
+import { apiClient } from '@services/apiClient';
+import { logger } from '@utils/logger';
 
 interface ModalProps {
   visible: boolean;
@@ -15,23 +17,24 @@ interface ModalProps {
 const { width } = Dimensions.get('window');
 
 const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
-  const slideAnim = React.useRef(new Animated.Value(-width)).current;
+  const slideAnim = useRef(new Animated.Value(-width)).current;
   const [hasOpenMatch, setHasOpenMatch] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
-  const { colors } = useTheme();
 
+  // Verifica se há usuário logado
   const checkAuthentication = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
       const token = await AsyncStorage.getItem('token');
       setIsAuthenticated(!!userId && !!token);
     } catch (error) {
-      console.error('Erro ao verificar autenticação:', error);
+      logger.warn('[SandwichMenu] Erro ao verificar autenticação:', error);
       setIsAuthenticated(false);
     }
   };
 
+  // Verifica se há partidas em aberto
   const checkOpenMatches = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
@@ -45,10 +48,11 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
           },
         };
 
-        const response = await axios.get(
-          `https://noob-api-1.onrender.com/api/partidas/filtro?registrador=${userId}&fim=null`,
+        const response = await apiClient.get(
+          `/partidas/filtro?registrador=${userId}&fim=null`,
           config,
         );
+
         setHasOpenMatch(response.data.length > 0);
       }
     } catch (error) {
@@ -56,26 +60,32 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
         if (error.response?.status === 404) {
           setHasOpenMatch(false);
         } else {
-          console.error('Erro ao verificar partidas em aberto:', error);
+          logger.warn('[SandwichMenu] Erro na verificação de partidas:', error.message);
         }
       } else {
-        console.error('Erro desconhecido:', error);
+        logger.warn('[SandwichMenu] Erro desconhecido:', error);
       }
     }
   };
 
+  // Logout do usuário
   const handleLogout = async () => {
     try {
       await AsyncStorage.multiRemove(['token', 'userId']);
-      Alert.alert('Sucesso', 'Logout realizado com sucesso!');
+      if (Platform.OS === 'web') {
+        logger.log('[SandwichMenu] Logout realizado com sucesso.');
+      } else {
+        Alert.alert('Sucesso', 'Logout realizado com sucesso!');
+      }
       setIsAuthenticated(false);
       onClose();
       router.push(ROUTES.LOGIN);
     } catch (error) {
-      console.error('Erro ao realizar logout:', error);
+      logger.warn('[SandwichMenu] Erro ao realizar logout:', error);
     }
   };
 
+  // Animação de entrada e saída do menu
   useEffect(() => {
     if (visible) {
       checkAuthentication();
@@ -93,12 +103,14 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
     }
   }, [visible]);
 
+  // Verifica partidas após confirmação de login
   useEffect(() => {
     if (isAuthenticated) {
       checkOpenMatches();
     }
   }, [isAuthenticated]);
 
+  // Fecha o menu com animação
   const handleClose = () => {
     Animated.timing(slideAnim, {
       toValue: -width,
@@ -107,19 +119,21 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
     }).start(() => onClose());
   };
 
+  // Navega para uma rota e fecha o menu
   const handleNavigate = (path: (typeof ROUTES)[keyof typeof ROUTES]) => {
     handleClose();
     router.push(path);
   };
 
+  // Lógica para botão "Jogar"
   const handlePlayPress = () => {
     handleClose();
     if (hasOpenMatch) {
-      // TODO: adicionar rota para finalizar partida
-      // router.push('/matches/finish');
+      // TODO: Adicionar rota para finalizar partida
+      // TODO: router.push('/matches/finish');
     } else {
-      // TODO: adicionar rota para jogar nova partida
-      // router.push('/matches/play');
+      // TODO: Adicionar rota para finalizar partida
+      // TODO: router.push('/matches/play');
     }
   };
 
@@ -131,7 +145,6 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
             stylesSandwichMenu.modalView,
             {
               transform: [{ translateX: slideAnim }],
-              backgroundColor: colors.backgroundSemiHighlight,
             },
           ]}
         >
