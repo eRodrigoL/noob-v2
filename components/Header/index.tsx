@@ -3,7 +3,8 @@ import { View, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useTheme, stylesHeader } from '@theme/index';
+import { useTheme } from '@theme/index';
+import stylesHeader from './styles';
 import SandwichMenu from '@components/SandwichMenu';
 import ButtonHighlight from '@components/ButtonHighlight';
 

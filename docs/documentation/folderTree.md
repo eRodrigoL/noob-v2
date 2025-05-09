@@ -19,7 +19,7 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   ├── [x] index.tsx               // Tela inicial (pode redirecionar para login ou dashboard)
 │   ├── [ ] +not-found.tsx          // Tela para rotas inexistentes (404)
 │   ├── 📁 [x] (auth)/             // Rotas públicas (sem autenticação obrigatória)
-│   │   ├── [ ] login.tsx           // Tela de login do usuário
+│   │   ├── [x] login.tsx           // Tela de login do usuário
 │   │   └── [ ] register.tsx        // Tela de registro de novo usuário
 │   └── 📁 [x] (app)/              // Rotas privadas (após autenticação)
 │       ├── [ ] _layout.tsx         // Layout com checagem de sessão/autenticação
@@ -51,13 +51,17 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │       ├── 📁 [x] placeholders/    // Imagens de recurso ausente (ex: "imagem não encontrada")
 │       │   └── [x] unavailable.png
 │       └── 📁 [ ] backgrounds/     // Fundos decorativos ou imagens de tela cheia
-├── 📁 [x] components/              // Componentes reutilizáveis e independentes
-│   ├── [x] Button.tsx
-│   ├── [x] ButtonHighlight.tsx
-│   ├── [x] SandwichMenu.tsx
-│   ├── [ ] Header/              // Cabeçalho do app, com estilo dinâmico
-│   ├── [ ] Form/                // Inputs, selects, dropdowns e formulários
-│   └── ...                         // Outros componentes (Cards, Avatares, Botões, etc.)
+├── 📁 [x] components/              
+│   ├── 📁 [x] ButtonHighlight/     
+│   │   └── [x] index.tsx          
+│   ├── 📁 [x] ButtonSemiHighlight/     
+│   │   └── [x] index.tsxg     
+│   ├── 📁 [x] Header/     
+│   │   ├── [x] index.tsx  
+│   │   └── [x] styles   
+│   ├── 📁 [x] SandwichMenu/     
+│   │   ├── [x] index.tsx  
+│   │   └── [x] stylests.x
 ├── 📁 [x] constants/               // Valores fixos reutilizados em todo o app (temas, textos, rotas)
 │   └── 📁 [x] documentation/       // Documentação técnica por tópicos
 │       ├── [x] images.ts
@@ -92,15 +96,12 @@ A estrutura foi planejada para facilitar a **modularização**, **acessibilidade
 │   │   └── [ ] Header.test.tsx
 │   └── 📁 [ ] e2e/                // Testes ponta a ponta (caso use Detox ou Playwright)
 │       └── [ ] login-flow.test.ts
-├── 📁 [x] theme/                   // Definição de temas e tipografia
-│   ├── 📁 [x] components/
-│   │   ├── [x] SandwichMenu.ts
-│   │   └── [ ] ...
-│   ├── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
-│   │   ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
-│   │   ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
-│   │   └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
-│   └── [x] index.ts
+├── 📁 [x] theme/
+│   ├── [x] index.ts
+│   └── 📁 [x] glogal/                // Testes ponta a ponta (caso use Detox ou Playwright)
+│       ├── [x] theme.ts                // Paleta de cores por tema (claro, escuro, daltônico)
+│       ├── [x] typography.ts           // Tamanhos base e multiplicadores de fonte
+│       └── [x] globalStyles.ts         // Estilos comuns reutilizados nos componentes
 ├── 📁 [x] utils/                   // Funções utilitárias e helpers
 │   ├── [ ] formatDate.ts           // Formata datas para exibição
 │   ├── [x] logger.ts
