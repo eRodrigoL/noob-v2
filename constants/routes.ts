@@ -1,6 +1,6 @@
 // src/constants/routes.ts
 export const ROUTES = {
-  HOME: '/',
+  HOME: '/test',
   LOGIN: '/login',
   SETTINGS: '/settings',
   TEST: '/test',
