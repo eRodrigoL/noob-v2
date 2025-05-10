@@ -16,7 +16,7 @@ if (!baseURL) {
 
 // Cria uma instância Axios personalizada para uso em toda a aplicação
 export const apiClient = axios.create({
-  baseURL, // Base das requisições (ex: https://noob-api-1.onrender.com/api)
+  baseURL, // Base das requisições
   timeout: 30000, // Tempo máximo de espera para uma resposta (30s)
   headers: {
     'Content-Type': 'application/json', // Tipo padrão do corpo das requisições

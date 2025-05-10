@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
 import { ButtonSemiHighlight, ButtonHighlight, Header } from '@components/index';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { apiClient } from '@services/apiClient';
+import { logger } from '@utils/logger';
 import Toast from 'react-native-toast-message';
 
 export default function SettingsScreen() {
@@ -50,49 +53,45 @@ export default function SettingsScreen() {
   ];
 
   const applyChanges = async () => {
-  try {
-    // Atualiza o estado global
-    setFontFamily(localFontFamily);
-    setColorScheme(localColorScheme);
-    useSettingsStore.setState({ fontSizeMultiplier: localFontSizeMultiplier });
+    try {
+      setFontFamily(localFontFamily);
+      setColorScheme(localColorScheme);
+      useSettingsStore.setState({ fontSizeMultiplier: localFontSizeMultiplier });
 
-    // Recupera ID do usuário do AsyncStorage
-    const userId = await AsyncStorage.getItem('userId');
-    const token = await AsyncStorage.getItem('token');
+      const userId = await AsyncStorage.getItem('userId');
+      const token = await AsyncStorage.getItem('token');
 
-    if (!userId || !token) {
-      console.warn('ID do usuário ou token não encontrado.');
-      return;
+      if (!userId || !token) {
+        logger.warn('ID do usuário ou token não encontrado.');
+        return;
+      }
+
+      const body = {
+        fontOption: localFontFamily,
+        fontSize: localFontSizeMultiplier,
+        theme: localColorScheme,
+      };
+
+      const response = await apiClient.put(`/usuarios/preferencias/${userId}`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status !== 200) {
+        Toast.show({
+          type: 'error',
+          text1: 'Erro',
+          text2: response.data?.msg || 'Falha ao salvar mudanças',
+        });
+      } else {
+        Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Mudanças atualizadas!' });
+      }
+    } catch (error) {
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'Erro inesperado ao salvar' });
+      logger.error('Erro ao aplicar mudanças de estilo:', error);
     }
-
-    // Monta o corpo da requisição
-    const body = {
-      fontOption: localFontFamily,
-      fontSize: localFontSizeMultiplier,
-      theme: localColorScheme,
-    };
-
-    const response = await fetch(`https://noob-api-1.onrender.com/api/usuarios/preferencias/${userId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Caso sua API exija autenticação
-      },
-      body: JSON.stringify(body),
-    });
-
-    const result = await response.json();
-
-     if (!response.ok) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: result.msg || 'Falha ao salvar mudanças' });
-    } else {
-      Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Mudanças atualizadas!' });
-    }
-  } catch (error) {
-    Toast.show({ type: 'error', text1: 'Erro', text2: 'Erro inesperado ao salvar' });
-    console.error(error);
-  }
-};
+  };
 
   const restoreLocalDefaults = () => {
     setLocalFontFamily('arial');
@@ -114,7 +113,6 @@ export default function SettingsScreen() {
 
   return (
     <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
-      {/* Componente Header (cabeçalho) */}
       <Header
         title="Tela de Teste"
         fontFamilyOverride={previewFontFamily}
@@ -123,7 +121,6 @@ export default function SettingsScreen() {
         backgroundColorOverride={previewColors.backgroundHighlight}
       />
 
-      {/* Seleção de Fonte */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -152,7 +149,6 @@ export default function SettingsScreen() {
         }}
       />
 
-      {/* Ajuste de Tamanho da Fonte */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -163,19 +159,11 @@ export default function SettingsScreen() {
         Tamanho da fonte:
       </Text>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginBottom: 20,
-        }}
-      >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
         <ButtonSemiHighlight title="A-" onPress={handleDecrease} />
-
         <ButtonSemiHighlight title="A+" onPress={handleIncrease} />
       </View>
 
-      {/* Seleção de Tema de Cores */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -204,7 +192,6 @@ export default function SettingsScreen() {
         }}
       />
 
-      {/* Botões de ação */}
       <ButtonHighlight
         title="Confirmar mudanças"
         onPress={applyChanges}
