@@ -6,6 +6,8 @@ import { useRouter } from 'expo-router';
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
 import { ButtonSemiHighlight, ButtonHighlight, Header } from '@components/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -47,11 +49,50 @@ export default function SettingsScreen() {
     { key: 'daltonic', value: 'Daltônico' },
   ];
 
-  const applyChanges = () => {
+  const applyChanges = async () => {
+  try {
+    // Atualiza o estado global
     setFontFamily(localFontFamily);
     setColorScheme(localColorScheme);
     useSettingsStore.setState({ fontSizeMultiplier: localFontSizeMultiplier });
-  };
+
+    // Recupera ID do usuário do AsyncStorage
+    const userId = await AsyncStorage.getItem('userId');
+    const token = await AsyncStorage.getItem('token');
+
+    if (!userId || !token) {
+      console.warn('ID do usuário ou token não encontrado.');
+      return;
+    }
+
+    // Monta o corpo da requisição
+    const body = {
+      fontOption: localFontFamily,
+      fontSize: localFontSizeMultiplier,
+      theme: localColorScheme,
+    };
+
+    const response = await fetch(`https://noob-api-1.onrender.com/api/usuarios/preferencias/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Caso sua API exija autenticação
+      },
+      body: JSON.stringify(body),
+    });
+
+    const result = await response.json();
+
+     if (!response.ok) {
+      Toast.show({ type: 'error', text1: 'Erro', text2: result.msg || 'Falha ao salvar mudanças' });
+    } else {
+      Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Mudanças atualizadas!' });
+    }
+  } catch (error) {
+    Toast.show({ type: 'error', text1: 'Erro', text2: 'Erro inesperado ao salvar' });
+    console.error(error);
+  }
+};
 
   const restoreLocalDefaults = () => {
     setLocalFontFamily('arial');
