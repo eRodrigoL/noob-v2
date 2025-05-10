@@ -1,3 +1,5 @@
+// store/useSettingsStore.ts
+
 // Importa a função create do Zustand para criar o store
 import { create } from 'zustand';
 // Importa AsyncStorage para persistência de dados
@@ -5,15 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Define o tipo para o estado e as ações do store de configurações
 type SettingsState = {
-  fontFamily: string;
-  fontSizeMultiplier: number;
-  colorScheme: 'light' | 'dark' | 'daltonic';
-  setFontFamily: (_fontFamily: string) => void;
-  increaseFontSize: () => void;
-  decreaseFontSize: () => void;
-  setColorScheme: (scheme: 'light' | 'dark' | 'daltonic') => void;
-  restoreDefaults: () => void;
-  loadSettings: () => Promise<void>;
+  colorScheme: 'light' | 'dark' | 'daltonic'; // Paleta de cores escolhida
+  fontFamily: string; // Nome da fonte atual
+  fontSizeMultiplier: number; // Multiplicador do tamanho base da fonte
+  isLoaded: boolean; // Indica se as configurações foram carregadas
+  decreaseFontSize: () => void; // Diminui o tamanho da fonte
+  increaseFontSize: () => void; // Aumenta o tamanho da fonte
+  loadSettings: () => Promise<void>; // Carrega as configurações do AsyncStorage
+  restoreDefaults: () => void; // Restaura configurações padrão
+  setColorScheme: (scheme: 'light' | 'dark' | 'daltonic') => void; // Define a paleta de cores
+  setFontFamily: (fontFamily: string) => void; // Define a família da fonte
 };
 
 // Cria e exporta o hook useSettingsStore usando Zustand
@@ -22,24 +25,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   colorScheme: 'light',
   fontFamily: 'Arial',
   fontSizeMultiplier: 1,
+  isLoaded: false,
 
-  // Função para definir a família da fonte
-  setFontFamily: (fontFamily) => {
-    set({ fontFamily });
-    AsyncStorage.setItem('fontFamily', fontFamily);
-  },
-
-  // Função para aumentar o tamanho da fonte
-  increaseFontSize: () => {
-    const { fontSizeMultiplier } = get();
-    if (fontSizeMultiplier < 1.5) {
-      const newSize = fontSizeMultiplier + 0.1;
-      set({ fontSizeMultiplier: newSize });
-      AsyncStorage.setItem('fontSizeMultiplier', newSize.toString());
-    }
-  },
-
-  // Função para diminuir o tamanho da fonte
+  // 🔤 Diminui o tamanho da fonte dentro do limite mínimo
   decreaseFontSize: () => {
     const { fontSizeMultiplier } = get();
     if (fontSizeMultiplier > 0.8) {
@@ -49,37 +37,47 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     }
   },
 
-  // Função para definir o esquema de cores
-  setColorScheme: (colorScheme) => {
-    set({ colorScheme });
-    AsyncStorage.setItem('colorScheme', colorScheme);
+  // 🔠 Aumenta o tamanho da fonte dentro do limite máximo
+  increaseFontSize: () => {
+    const { fontSizeMultiplier } = get();
+    if (fontSizeMultiplier < 1.5) {
+      const newSize = fontSizeMultiplier + 0.1;
+      set({ fontSizeMultiplier: newSize });
+      AsyncStorage.setItem('fontSizeMultiplier', newSize.toString());
+    }
   },
 
-  // Função para restaurar as configurações padrão
+  // ⏬ Carrega as configurações armazenadas no AsyncStorage
+  loadSettings: async () => {
+    const fontFamily = (await AsyncStorage.getItem('fontFamily')) || 'Arial';
+
+    const fontSizeMultiplier = parseFloat(
+      (await AsyncStorage.getItem('fontSizeMultiplier')) || '1',
+    );
+
+    const storedColorScheme = await AsyncStorage.getItem('colorScheme');
+    const colorScheme = ['light', 'dark', 'daltonic'].includes(storedColorScheme!)
+      ? (storedColorScheme as 'light' | 'dark' | 'daltonic')
+      : 'light';
+
+    set({ fontFamily, fontSizeMultiplier, colorScheme, isLoaded: true });
+  },
+
+  // ♻️ Restaura as configurações padrão e limpa o AsyncStorage
   restoreDefaults: () => {
     set({ fontFamily: 'Arial', fontSizeMultiplier: 1, colorScheme: 'light' });
     AsyncStorage.multiRemove(['fontFamily', 'fontSizeMultiplier', 'colorScheme']);
   },
 
-  // Função assíncrona para carregar as configurações salvas
-  loadSettings: async () => {
-    // Carrega a família da fonte (usa "Arial" como padrão se não encontrar)
-    const fontFamily = (await AsyncStorage.getItem('fontFamily')) || 'Arial';
+  // 🎨 Define o tema de cores escolhido e salva
+  setColorScheme: (colorScheme) => {
+    set({ colorScheme: colorScheme });
+    AsyncStorage.setItem('colorScheme', colorScheme);
+  },
 
-    // Carrega o multiplicador de tamanho da fonte (usa 1 como padrão se não encontrar)
-    const fontSizeMultiplier = parseFloat(
-      (await AsyncStorage.getItem('fontSizeMultiplier')) || '1',
-    );
-
-    // Carrega o esquema de cores salvo
-    const storedColorScheme = await AsyncStorage.getItem('colorScheme');
-
-    // Verifica se o esquema de cores é válido, caso contrário usa "light"
-    const colorScheme = ['light', 'dark', 'daltonic'].includes(storedColorScheme!)
-      ? (storedColorScheme as 'light' | 'dark' | 'daltonic')
-      : 'light';
-
-    // Atualiza o estado com as configurações carregadas
-    set({ fontFamily, fontSizeMultiplier, colorScheme });
+  // 🖋️ Define a família tipográfica escolhida e salva
+  setFontFamily: (fontFamily) => {
+    set({ fontFamily: fontFamily });
+    AsyncStorage.setItem('fontFamily', fontFamily);
   },
 }));
