@@ -3,7 +3,8 @@ import { useRouter } from 'expo-router';
 import { Modal, View, Animated, Dimensions, Pressable, Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useTheme, stylesSandwichMenu } from '@theme/index';
+import { useTheme } from '@theme/index';
+import stylesSandwichMenu from './styles';
 import ButtonHighlight from '@components/ButtonHighlight';
 import { ROUTES } from '@constants/index';
 
