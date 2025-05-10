@@ -60,7 +60,10 @@ export default function TestScreen() {
       </Text>
 
       {/* Botão voltar */}
-      <ButtonHighlight title="Ir para Configurações" onPress={() => router.push(ROUTES.SETTINGS)} />
+      <ButtonHighlight
+        title="Ir para Configurações"
+        onPress={() => router.push(ROUTES.USER.SETTINGS)}
+      />
     </View>
   );
 }

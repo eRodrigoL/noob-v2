@@ -1,3 +1,5 @@
+// theme/global/theme.ts
+
 // Definição da paleta de cores para a aplicação
 const theme = {
   // Tema claro

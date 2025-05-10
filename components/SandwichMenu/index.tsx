@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import stylesSandwichMenu from './styles';
 import ButtonHighlight from '@components/ButtonHighlight';
-import { ROUTES } from '@constants/index';
+import { ROUTES, ValidRoutes } from '@constants/index';
 import { useTheme } from '@theme/index';
 import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
@@ -81,7 +81,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
       }
       setIsAuthenticated(false);
       onClose();
-      router.push(ROUTES.LOGIN);
+      router.push(ROUTES.USER.LOGIN);
     } catch (error) {
       logger.warn('[SandwichMenu] Erro ao realizar logout:', error);
     }
@@ -122,7 +122,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
   };
 
   // Navega para uma rota e fecha o menu
-  const handleNavigate = (path: (typeof ROUTES)[keyof typeof ROUTES]) => {
+  const handleNavigate = (path: ValidRoutes) => {
     handleClose();
     router.push(path);
   };
@@ -154,7 +154,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
           <View style={stylesSandwichMenu.buttonContainer}>
             <ButtonHighlight title="Início" onPress={() => handleNavigate(ROUTES.HOME)} />
             {!isAuthenticated ? (
-              <ButtonHighlight title="Login" onPress={() => handleNavigate(ROUTES.LOGIN)} />
+              <ButtonHighlight title="Login" onPress={() => handleNavigate(ROUTES.USER.LOGIN)} />
             ) : (
               <>
                 <ButtonHighlight
@@ -165,7 +165,7 @@ const SandwichMenu: React.FC<ModalProps> = ({ visible, onClose }) => {
                 />
                 <ButtonHighlight
                   title="Configurações"
-                  onPress={() => handleNavigate(ROUTES.SETTINGS)}
+                  onPress={() => handleNavigate(ROUTES.USER.SETTINGS)}
                 />
                 <ButtonHighlight title="Jogar" onPress={handlePlayPress} />
                 <ButtonHighlight title="Sair" onPress={handleLogout} />

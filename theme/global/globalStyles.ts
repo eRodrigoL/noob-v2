@@ -1,3 +1,5 @@
+// theme/glogal/globalStyles.ts
+
 // Importa a função StyleSheet do React Native para criar estilos
 import { StyleSheet } from 'react-native';
 

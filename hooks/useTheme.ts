@@ -1,3 +1,5 @@
+// hooks/useTheme.ts
+
 // Importa o hook personalizado useSettingsStore do arquivo de configurações
 import { useSettingsStore } from '@store/useSettingsStore';
 import theme from '@theme/global/theme'; // Importa as definições de tema (cores) do arquivo theme.ts

@@ -2,6 +2,11 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
+import Toast from 'react-native-toast-message';
+import { logger } from '@utils/logger';
+import { ROUTES } from '@constants/routes';
 
 // Recupera a URL base da API definida em app.config.js (extra.apiBaseUrl)
 const baseURL = Constants.expoConfig?.extra?.apiBaseUrl;
@@ -32,27 +37,28 @@ axiosRetry(apiClient, {
     error.code === 'ECONNABORTED' || axiosRetry.isNetworkOrIdempotentRequestError(error),
 });
 
-// ---
-// 🧪 Exemplo de uso:
+// 🛡️ Interceptor global para tratamento de token expirado
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (axios.isAxiosError(error)) {
+      const msg = error.response?.data?.msg?.toLowerCase?.() ?? '';
 
-// 1. Importação
-// import { apiClient } from '@services/apiClient';
+      const isTokenError = msg.includes('token inválido') || msg.includes('jwt');
 
-// 2. Requisição GET (exemplo: buscar jogos públicos)
-// const response = await apiClient.get('/jogos');
+      if (isTokenError) {
+        logger.warn('🔒 Token inválido detectado. Redirecionando para login...');
+        Toast.show({
+          type: 'error',
+          text1: 'Sessão expirada',
+          text2: 'Faça login novamente.',
+        });
 
-// 3. Requisição POST (exemplo: registrar usuário)
-// const response = await apiClient.post('/usuarios', {
-//   name: 'João da Silva',
-//   email: 'joao@email.com',
-// });
+        await AsyncStorage.multiRemove(['token', 'userId']);
+        router.replace(ROUTES.HOME); // rota de redirecionamento caso token tenha expirado
+      }
+    }
 
-// 4. Tratamento de erro (exemplo com try/catch)
-// try {
-//   const response = await apiClient.get('/partidas');
-//   usar utils/logger ('✅ Dados:', response.data);
-// } catch (error) {
-//   usar utils/logger ('❌ Erro ao buscar partidas:', error);
-// }
-
-// ---
+    return Promise.reject(error);
+  },
+);

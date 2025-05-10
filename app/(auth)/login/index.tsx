@@ -70,7 +70,7 @@ const Login: React.FC = () => {
         });
 
         // 🧭 Redireciona para a tela principal da aplicação
-        router.replace(ROUTES.TEST);
+        router.replace(ROUTES.HOME);
       }
     } catch (error: unknown) {
       // ❌ Em caso de falha (ex: credenciais incorretas ou timeout)

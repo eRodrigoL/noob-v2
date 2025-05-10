@@ -113,14 +113,16 @@ export default function SettingsScreen() {
 
   return (
     <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
+      {/* Componente Header (cabeçalho) */}
       <Header
-        title="Tela de Teste"
+        title="Configurações"
         fontFamilyOverride={previewFontFamily}
-        fontSizeOverride={fontSizes.base}
+        fontSizeOverride={fontSizes.giant}
         textColorOverride={previewColors.textOnHighlight}
         backgroundColorOverride={previewColors.backgroundHighlight}
       />
 
+      {/* Seleção de Fonte */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -149,6 +151,7 @@ export default function SettingsScreen() {
         }}
       />
 
+      {/* Ajuste de Tamanho da Fonte */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -159,11 +162,18 @@ export default function SettingsScreen() {
         Tamanho da fonte:
       </Text>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          marginBottom: 20,
+        }}
+      >
         <ButtonSemiHighlight title="A-" onPress={handleDecrease} />
         <ButtonSemiHighlight title="A+" onPress={handleIncrease} />
       </View>
 
+      {/* Seleção de Tema de Cores */}
       <Text
         style={{
           fontFamily: previewFontFamily,
@@ -192,6 +202,7 @@ export default function SettingsScreen() {
         }}
       />
 
+      {/* Botões de ação */}
       <ButtonHighlight
         title="Confirmar mudanças"
         onPress={applyChanges}
