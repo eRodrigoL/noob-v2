@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState, ReactNode } from 'react';
+import { ScrollView, ScrollViewProps, Text, View, ViewStyle } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@theme/index';
-import stylesHeader from './styles';
+import stylesHeaderLayout from './styles';
 import SandwichMenu from '@components/SandwichMenu';
 import ButtonHighlight from '@components/ButtonHighlight';
 import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
 import axios from 'axios';
 
-interface HeaderProps {
+interface HeaderLayoutProps {
   title: string;
+  children: ReactNode;
+  scrollable?: boolean;
+  contentStyle?: ViewStyle;
+  scrollProps?: ScrollViewProps;
   fontFamilyOverride?: string;
   fontSizeOverride?: number;
   textColorOverride?: string;
   backgroundColorOverride?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   title,
+  children,
+  scrollable = true,
+  contentStyle,
+  scrollProps,
   fontFamilyOverride,
   fontSizeOverride,
   textColorOverride,
@@ -108,54 +116,81 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <View
-      style={[
-        stylesHeader.headerContainer,
-        { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
-      ]}
-    >
-      {/* Botão de menu sanduíche */}
-      <ButtonHighlight
-        title="☰"
-        onPress={handleOpenModal}
-        fontFamilyOverride={fontFamilyOverride}
-        fontSizeOverride={fontSizeOverride}
-        colorOverride={textColorOverride}
-        backgroundColorOverride={backgroundColorOverride}
-      />
-
-      {/* Modal do menu */}
-      <SandwichMenu visible={modalVisible} onClose={handleCloseModal} />
-
-      {/* Título centralizado */}
-      <Text
+    <View style={{ flex: 1 }}>
+      <View
         style={[
-          stylesHeader.title,
-          {
-            fontFamily: fontFamilyOverride || fontFamily,
-            fontSize: fontSizeOverride || fontSizes.giant,
-            color: textColorOverride || colors.textOnHighlight,
-          },
+          stylesHeaderLayout.headerContainer,
+          { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
         ]}
       >
-        {title}
-      </Text>
+        {/* Botão de menu sanduíche à esquerda */}
+        <ButtonHighlight
+          title="☰"
+          onPress={handleOpenModal}
+          fontFamilyOverride={fontFamilyOverride}
+          fontSizeOverride={fontSizeOverride}
+          colorOverride={textColorOverride}
+          backgroundColorOverride={backgroundColorOverride}
+        />
 
-      {/* Botão 🎲 à direita (se autenticado) */}
-      <View style={stylesHeader.iconPlaceholder}>
-        {isAuthenticated && (
-          <ButtonHighlight
-            title="🎲"
-            onPress={handleSettingsPress}
-            fontFamilyOverride={fontFamilyOverride}
-            fontSizeOverride={fontSizeOverride}
-            colorOverride={textColorOverride}
-            backgroundColorOverride={backgroundColorOverride}
-          />
-        )}
+        {/* Modal de navegação lateral */}
+        <SandwichMenu visible={modalVisible} onClose={handleCloseModal} />
+
+        {/* Título centralizado */}
+        <Text
+          style={[
+            stylesHeaderLayout.title,
+            {
+              fontFamily: fontFamilyOverride || fontFamily,
+              fontSize: fontSizeOverride || fontSizes.giant,
+              color: textColorOverride || colors.textOnHighlight,
+            },
+          ]}
+        >
+          {title}
+        </Text>
+
+        {/* Botão 🎲 à direita (visível apenas se logado) */}
+        <View style={stylesHeaderLayout.iconPlaceholder}>
+          {isAuthenticated && (
+            <ButtonHighlight
+              title="🎲"
+              onPress={handleSettingsPress}
+              fontFamilyOverride={fontFamilyOverride}
+              fontSizeOverride={fontSizeOverride}
+              colorOverride={textColorOverride}
+              backgroundColorOverride={backgroundColorOverride}
+            />
+          )}
+        </View>
       </View>
+
+      {/* Conteúdo da tela, com scroll opcional */}
+      {scrollable ? (
+        <ScrollView
+          contentContainerStyle={[{ flexGrow: 1, padding: 16 }, contentStyle]}
+          keyboardShouldPersistTaps="handled"
+          {...scrollProps}
+        >
+          {children}
+        </ScrollView>
+      ) : (
+        <View style={[{ flex: 1, padding: 16 }, contentStyle]}>{children}</View>
+      )}
     </View>
   );
 };
 
-export default Header;
+export default HeaderLayout;
+
+/* EXEMPLOS DE IMPORTAÇÃO
+
+Scroll HABILITADO: <HeaderLayout title="Tela de Teste">
+  [conteúdo]
+</HeaderLayout>
+
+Scroll DESABILITADO: <HeaderLayout title="Tela de Teste" scrollable={false}>
+  [conteúdo]
+</HeaderLayout>
+
+*/

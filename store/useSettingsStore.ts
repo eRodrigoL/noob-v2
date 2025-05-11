@@ -15,7 +15,9 @@ type SettingsState = {
   increaseFontSize: () => void; // Aumenta o tamanho da fonte
   loadSettings: () => Promise<void>; // Carrega as configurações do AsyncStorage
   restoreDefaults: () => void; // Restaura configurações padrão
+  // eslint-disable-next-line no-unused-vars
   setColorScheme: (scheme: 'light' | 'dark' | 'daltonic') => void; // Define a paleta de cores
+  // eslint-disable-next-line no-unused-vars
   setFontFamily: (fontFamily: string) => void; // Define a família da fonte
 };
 

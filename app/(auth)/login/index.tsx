@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message';
 
 import { globalStyles, useTheme } from '@theme/index';
 import { ROUTES } from '@constants/index';
-import { ButtonHighlight, ButtonSemiHighlight, Header } from '@components/index';
+import { ButtonHighlight, ButtonSemiHighlight, HeaderLayout } from '@components/index';
 import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
 
@@ -86,78 +86,80 @@ const Login: React.FC = () => {
   return (
     <View style={[globalStyles.container, { backgroundColor: colors.backgroundBase }]}>
       {/* Cabeçalho customizado da tela */}
-      <Header title="Login" />
+      <HeaderLayout title="Login">
+        <View>
+          {/* Título da aplicação */}
+          <Text
+            style={{
+              fontFamily,
+              fontSize: fontSizes.giant,
+              textAlign: 'center',
+              color: colors.textOnBase,
+              marginBottom: 20,
+            }}
+          >
+            Noob 🎲
+          </Text>
 
-      <View>
-        {/* Título da aplicação */}
-        <Text
-          style={{
-            fontFamily,
-            fontSize: fontSizes.giant,
-            textAlign: 'center',
-            color: colors.textOnBase,
-            marginBottom: 20,
-          }}
-        >
-          Noob 🎲
-        </Text>
-
-        {/* Campo de apelido */}
-        <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
-          Apelido:
-        </Text>
-        <TextInput
-          style={{
-            backgroundColor: colors.backgroundSemiHighlight,
-            color: colors.textOnSemiHighlight,
-            fontFamily,
-            fontSize: fontSizes.base,
-            borderRadius: 5,
-            padding: 10,
-            marginBottom: 16,
-          }}
-          placeholder="usuário"
-          value={`@${apelido}`} // Exibe com o @, mas armazena sem ele
-          onChangeText={(text) => setApelido(text.replace('@', ''))}
-          autoCapitalize="none"
-        />
-
-        {/* Campo de senha */}
-        <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
-          Senha:
-        </Text>
-        <TextInput
-          style={{
-            backgroundColor: colors.backgroundSemiHighlight,
-            color: colors.textOnSemiHighlight,
-            fontFamily,
-            fontSize: fontSizes.base,
-            borderRadius: 5,
-            padding: 10,
-            marginBottom: 16,
-          }}
-          secureTextEntry // Oculta os caracteres digitados
-          value={senha}
-          onChangeText={setSenha}
-          placeholder="senha"
-        />
-
-        {/* Botão principal: login */}
-        <ButtonHighlight title="Entrar" onPress={handleLogin} />
-
-        {/* Botão secundário: voltar para a tela anterior */}
-        <ButtonSemiHighlight title="Voltar" onPress={() => router.back()} />
-
-        {/* Opção de cadastro (link futuro) */}
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {/* Campo de apelido */}
           <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
-            Ainda não tem uma conta?
+            Apelido:
           </Text>
-          <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.backgroundHighlight }}>
-            Cadastre-se
+          <TextInput
+            style={{
+              backgroundColor: colors.backgroundSemiHighlight,
+              color: colors.textOnSemiHighlight,
+              fontFamily,
+              fontSize: fontSizes.base,
+              borderRadius: 5,
+              padding: 10,
+              marginBottom: 16,
+            }}
+            placeholder="usuário"
+            value={`@${apelido}`} // Exibe com o @, mas armazena sem ele
+            onChangeText={(text) => setApelido(text.replace('@', ''))}
+            autoCapitalize="none"
+          />
+
+          {/* Campo de senha */}
+          <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
+            Senha:
           </Text>
+          <TextInput
+            style={{
+              backgroundColor: colors.backgroundSemiHighlight,
+              color: colors.textOnSemiHighlight,
+              fontFamily,
+              fontSize: fontSizes.base,
+              borderRadius: 5,
+              padding: 10,
+              marginBottom: 16,
+            }}
+            secureTextEntry // Oculta os caracteres digitados
+            value={senha}
+            onChangeText={setSenha}
+            placeholder="senha"
+          />
+
+          {/* Botão principal: login */}
+          <ButtonHighlight title="Entrar" onPress={handleLogin} />
+
+          {/* Botão secundário: voltar para a tela anterior */}
+          <ButtonSemiHighlight title="Voltar" onPress={() => router.back()} />
+
+          {/* Opção de cadastro (link futuro) */}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontFamily, fontSize: fontSizes.base, color: colors.textOnBase }}>
+              Ainda não tem uma conta?
+            </Text>
+            <Text
+              style={{ fontFamily, fontSize: fontSizes.base, color: colors.backgroundHighlight }}
+            >
+              Cadastre-se
+            </Text>
+          </View>
         </View>
-      </View>
+      </HeaderLayout>
     </View>
   );
 };

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useSettingsStore } from '@store/useSettingsStore';
 import { theme, typography, globalStyles } from '@theme/index';
-import { ButtonSemiHighlight, ButtonHighlight, Header } from '@components/index';
+import { ButtonSemiHighlight, ButtonHighlight, HeaderLayout } from '@components/index';
 import { apiClient } from '@services/apiClient';
 import { logger } from '@utils/logger';
 import Toast from 'react-native-toast-message';
@@ -113,122 +113,136 @@ export default function SettingsScreen() {
 
   return (
     <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
-      {/* Componente Header (cabeçalho) */}
-      <Header
+      {/* Componente HeaderLayout (cabeçalho) */}
+      <HeaderLayout
         title="Configurações"
         fontFamilyOverride={previewFontFamily}
-        fontSizeOverride={fontSizes.giant}
+        fontSizeOverride={fontSizes.large}
         textColorOverride={previewColors.textOnHighlight}
         backgroundColorOverride={previewColors.backgroundHighlight}
-      />
-
-      {/* Seleção de Fonte */}
-      <Text
-        style={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
       >
-        Fonte do corpo:
-      </Text>
+        {/* Seleção de Fonte */}
+        <Text
+          style={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        >
+          Fonte do corpo:
+        </Text>
 
-      <SelectList
-        setSelected={setLocalFontFamily}
-        data={fontOptions}
-        defaultOption={fontOptions.find((f) => f.key === localFontFamily)}
-        search={false}
-        boxStyles={{ marginBottom: 20 }}
-        dropdownTextStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-        inputStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      />
+        <SelectList
+          setSelected={setLocalFontFamily}
+          data={fontOptions}
+          defaultOption={fontOptions.find((f) => f.key === localFontFamily)}
+          search={false}
+          boxStyles={{ marginBottom: 20 }}
+          dropdownTextStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+          inputStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        />
 
-      {/* Ajuste de Tamanho da Fonte */}
-      <Text
-        style={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      >
-        Tamanho da fonte:
-      </Text>
+        {/* Ajuste de Tamanho da Fonte */}
+        <Text
+          style={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        >
+          Tamanho da fonte:
+        </Text>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginBottom: 20,
-        }}
-      >
-        <ButtonSemiHighlight title="A-" onPress={handleDecrease} />
-        <ButtonSemiHighlight title="A+" onPress={handleIncrease} />
-      </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginBottom: 20,
+          }}
+        >
+          <ButtonSemiHighlight
+            title="A-"
+            onPress={handleDecrease}
+            fontFamilyOverride={previewFontFamily}
+            fontSizeOverride={fontSizes.base}
+            colorOverride={previewColors.textOnSemiHighlight}
+            backgroundColorOverride={previewColors.backgroundSemiHighlight}
+          />
+          <ButtonSemiHighlight
+            title="A+"
+            onPress={handleIncrease}
+            fontFamilyOverride={previewFontFamily}
+            fontSizeOverride={fontSizes.base}
+            colorOverride={previewColors.textOnSemiHighlight}
+            backgroundColorOverride={previewColors.backgroundSemiHighlight}
+          />
+        </View>
 
-      {/* Seleção de Tema de Cores */}
-      <Text
-        style={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      >
-        Tema de cores:
-      </Text>
+        {/* Seleção de Tema de Cores */}
+        <Text
+          style={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        >
+          Tema de cores:
+        </Text>
 
-      <SelectList
-        setSelected={setLocalColorScheme}
-        data={themeOptions}
-        defaultOption={themeOptions.find((t) => t.key === localColorScheme)}
-        search={false}
-        boxStyles={{ marginBottom: 20 }}
-        dropdownTextStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-        inputStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      />
+        <SelectList
+          setSelected={setLocalColorScheme}
+          data={themeOptions}
+          defaultOption={themeOptions.find((t) => t.key === localColorScheme)}
+          search={false}
+          boxStyles={{ marginBottom: 20 }}
+          dropdownTextStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+          inputStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        />
 
-      {/* Botões de ação */}
-      <ButtonHighlight
-        title="Confirmar mudanças"
-        onPress={applyChanges}
-        fontFamilyOverride={previewFontFamily}
-        fontSizeOverride={fontSizes.base}
-        colorOverride={previewColors.textOnHighlight}
-        backgroundColorOverride={previewColors.backgroundHighlight}
-      />
+        {/* Botões de ação */}
+        <ButtonHighlight
+          title="Confirmar mudanças"
+          onPress={applyChanges}
+          fontFamilyOverride={previewFontFamily}
+          fontSizeOverride={fontSizes.base}
+          colorOverride={previewColors.textOnHighlight}
+          backgroundColorOverride={previewColors.backgroundHighlight}
+        />
 
-      <ButtonSemiHighlight
-        title="Restaurar padrão"
-        onPress={restoreLocalDefaults}
-        fontFamilyOverride={previewFontFamily}
-        fontSizeOverride={fontSizes.base}
-        colorOverride={previewColors.textOnSemiHighlight}
-        backgroundColorOverride={previewColors.backgroundSemiHighlight}
-      />
+        <ButtonSemiHighlight
+          title="Restaurar padrão"
+          onPress={restoreLocalDefaults}
+          fontFamilyOverride={previewFontFamily}
+          fontSizeOverride={fontSizes.base}
+          colorOverride={previewColors.textOnSemiHighlight}
+          backgroundColorOverride={previewColors.backgroundSemiHighlight}
+        />
 
-      <ButtonSemiHighlight
-        title="Voltar"
-        onPress={() => router.back()}
-        fontFamilyOverride={previewFontFamily}
-        fontSizeOverride={fontSizes.base}
-        colorOverride={previewColors.textOnSemiHighlight}
-        backgroundColorOverride={previewColors.backgroundSemiHighlight}
-      />
+        <ButtonSemiHighlight
+          title="Voltar"
+          onPress={() => router.back()}
+          fontFamilyOverride={previewFontFamily}
+          fontSizeOverride={fontSizes.base}
+          colorOverride={previewColors.textOnSemiHighlight}
+          backgroundColorOverride={previewColors.backgroundSemiHighlight}
+        />
+      </HeaderLayout>
     </View>
   );
 }

@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-const stylesHeader = StyleSheet.create({
+const stylesHeaderLayout = StyleSheet.create({
   headerContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    height: 60,
+    height: 70,
     justifyContent: 'space-between',
     padding: 0,
     zIndex: 1,
@@ -26,4 +26,4 @@ const stylesHeader = StyleSheet.create({
   },
 });
 
-export default stylesHeader;
+export default stylesHeaderLayout;
