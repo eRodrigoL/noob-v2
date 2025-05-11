@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState, ReactNode } from 'react';
+import { ScrollView, ScrollViewProps, Text, View, ViewStyle } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { useTheme } from '@theme/index';
-import stylesHeader from './styles';
+import stylesHeaderLayout from './styles';
 import SandwichMenu from '@components/SandwichMenu';
 import ButtonHighlight from '@components/ButtonHighlight';
+import { apiClient } from '@services/apiClient';
+import { logger } from '@utils/logger';
+import axios from 'axios';
 
-interface HeaderProps {
+interface HeaderLayoutProps {
   title: string;
+  children: ReactNode;
+  scrollable?: boolean;
+  contentStyle?: ViewStyle;
+  scrollProps?: ScrollViewProps;
   fontFamilyOverride?: string;
   fontSizeOverride?: number;
   textColorOverride?: string;
   backgroundColorOverride?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   title,
+  children,
+  scrollable = true,
+  contentStyle,
+  scrollProps,
   fontFamilyOverride,
   fontSizeOverride,
   textColorOverride,
@@ -29,17 +39,19 @@ const Header: React.FC<HeaderProps> = ({
   const [hasOpenMatch, setHasOpenMatch] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Verifica se o usuário está autenticado com base no armazenamento local
   const checkAuthentication = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
       const token = await AsyncStorage.getItem('token');
       setIsAuthenticated(!!userId && !!token);
     } catch (error) {
-      console.error('Erro ao verificar autenticação:', error);
+      logger.warn('[Header] Erro ao verificar autenticação:', error);
       setIsAuthenticated(false);
     }
   };
 
+  // Verifica se o usuário possui partidas em aberto
   const checkOpenMatches = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
@@ -53,107 +65,132 @@ const Header: React.FC<HeaderProps> = ({
           },
         };
 
-        const response = await axios.get(
-          `https://noob-api-1.onrender.com/api/partidas/filtro?registrador=${userId}&fim=null`,
+        // ✅ Agora a URL vem da base + path via template string
+        const response = await apiClient.get(
+          `/partidas/filtro?registrador=${userId}&fim=null`,
           config,
         );
+
         setHasOpenMatch(response.data.length > 0);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 404) {
+          // Nenhuma partida em aberto
           setHasOpenMatch(false);
         } else {
-          console.error('Erro ao verificar partidas em aberto:', error);
+          logger.warn('[Header] Erro ao verificar partidas abertas:', error.message);
         }
       } else {
-        console.error('Erro desconhecido:', error);
+        logger.warn('[Header] Erro desconhecido ao verificar partidas abertas:', error);
       }
     }
   };
 
+  // Quando a tela entra em foco, verifica autenticação e reseta o modal
   useFocusEffect(
     React.useCallback(() => {
       checkAuthentication();
-      return () => {
-        setModalVisible(false);
-      };
+      return () => setModalVisible(false);
     }, []),
   );
 
+  // Se autenticado, verifica se há partidas abertas
   useEffect(() => {
     if (isAuthenticated) {
       checkOpenMatches();
     }
   }, [isAuthenticated]);
 
-  const handleOpenModal = () => {
-    setModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
+  const handleOpenModal = () => setModalVisible(true);
+  const handleCloseModal = () => setModalVisible(false);
 
   const handleSettingsPress = () => {
     if (hasOpenMatch) {
-      // TODO: adicionar rota para finalizar partida
+      // TODO: Adicionar rota para finalizar partida
       // router.push('/matches/finish');
     } else {
-      // TODO: adicionar rota para iniciar nova partida
+      // TODO: Adicionar rota para iniciar nova partida
       // router.push('/matches/play');
     }
   };
 
   return (
-    <View
-      style={[
-        stylesHeader.headerContainer,
-        { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
-      ]}
-    >
-      {/* Botão de menu sanduíche */}
-      <ButtonHighlight
-        title="☰"
-        onPress={handleOpenModal}
-        fontFamilyOverride={fontFamilyOverride}
-        fontSizeOverride={fontSizeOverride}
-        colorOverride={textColorOverride}
-        backgroundColorOverride={backgroundColorOverride}
-      />
-
-      {/* Modal do menu */}
-      <SandwichMenu visible={modalVisible} onClose={handleCloseModal} />
-
-      {/* Título centralizado */}
-      <Text
+    <View style={{ flex: 1 }}>
+      <View
         style={[
-          stylesHeader.title,
-          {
-            fontFamily: fontFamilyOverride || fontFamily,
-            fontSize: fontSizeOverride || fontSizes.giant,
-            color: textColorOverride || colors.textOnHighlight,
-          },
+          stylesHeaderLayout.headerContainer,
+          { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
         ]}
       >
-        {title}
-      </Text>
+        {/* Botão de menu sanduíche à esquerda */}
+        <ButtonHighlight
+          title="☰"
+          onPress={handleOpenModal}
+          fontFamilyOverride={fontFamilyOverride}
+          fontSizeOverride={fontSizeOverride}
+          colorOverride={textColorOverride}
+          backgroundColorOverride={backgroundColorOverride}
+        />
 
-      {/* Botão 🎲 à direita (se autenticado) */}
-      <View style={stylesHeader.iconPlaceholder}>
-        {isAuthenticated && (
-          <ButtonHighlight
-            title="🎲"
-            onPress={handleSettingsPress}
-            fontFamilyOverride={fontFamilyOverride}
-            fontSizeOverride={fontSizeOverride}
-            colorOverride={textColorOverride}
-            backgroundColorOverride={backgroundColorOverride}
-          />
-        )}
+        {/* Modal de navegação lateral */}
+        <SandwichMenu visible={modalVisible} onClose={handleCloseModal} />
+
+        {/* Título centralizado */}
+        <Text
+          style={[
+            stylesHeaderLayout.title,
+            {
+              fontFamily: fontFamilyOverride || fontFamily,
+              fontSize: fontSizeOverride || fontSizes.giant,
+              color: textColorOverride || colors.textOnHighlight,
+            },
+          ]}
+        >
+          {title}
+        </Text>
+
+        {/* Botão 🎲 à direita (visível apenas se logado) */}
+        <View style={stylesHeaderLayout.iconPlaceholder}>
+          {isAuthenticated && (
+            <ButtonHighlight
+              title="🎲"
+              onPress={handleSettingsPress}
+              fontFamilyOverride={fontFamilyOverride}
+              fontSizeOverride={fontSizeOverride}
+              colorOverride={textColorOverride}
+              backgroundColorOverride={backgroundColorOverride}
+            />
+          )}
+        </View>
       </View>
+
+      {/* Conteúdo da tela, com scroll opcional */}
+      {scrollable ? (
+        <ScrollView
+          contentContainerStyle={[{ flexGrow: 1, padding: 16 }, contentStyle]}
+          keyboardShouldPersistTaps="handled"
+          {...scrollProps}
+        >
+          {children}
+        </ScrollView>
+      ) : (
+        <View style={[{ flex: 1, padding: 16 }, contentStyle]}>{children}</View>
+      )}
     </View>
   );
 };
 
-export default Header;
+export default HeaderLayout;
+
+/* EXEMPLOS DE IMPORTAÇÃO
+
+Scroll HABILITADO: <HeaderLayout title="Tela de Teste">
+  [conteúdo]
+</HeaderLayout>
+
+Scroll DESABILITADO: <HeaderLayout title="Tela de Teste" scrollable={false}>
+  [conteúdo]
+</HeaderLayout>
+
+*/

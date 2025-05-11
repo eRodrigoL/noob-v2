@@ -1,10 +1,12 @@
+// theme/global/typography.ts
+
 // Define os estilos de tipografia globais da aplicação
 const typography = {
   // Famílias de fontes disponíveis no app (devem corresponder ao nome no useFonts)
   fonts: {
-    arial: "Arial",
-    roboto: "Roboto",
-    times: "Times New Roman",
+    arial: 'Arial',
+    roboto: 'Roboto',
+    times: 'Times New Roman',
   },
 
   // Tamanhos base de fonte e multiplicadores

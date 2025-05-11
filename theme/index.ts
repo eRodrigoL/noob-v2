@@ -1,3 +1,5 @@
+// theme/index.ts
+
 // Arquivos que definem os estilos dinâmicos
 export { default as theme } from '@theme/global/theme';
 export { default as typography } from '@theme/global/typography';

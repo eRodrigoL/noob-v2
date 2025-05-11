@@ -32,9 +32,10 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 describe('Login Screen', () => {
   it('mostra erro se os campos estiverem vazios', async () => {
     const { getByText } = render(
-      <NavigationContainer>  {/* Envolva o componente com NavigationContainer */}
+      <NavigationContainer>
+        {/* Envolva o componente com NavigationContainer */}
         <Login />
-      </NavigationContainer>
+      </NavigationContainer>,
     );
     const loginButton = getByText('Entrar');
     fireEvent.press(loginButton);
@@ -57,9 +58,10 @@ describe('Login Screen', () => {
     });
 
     const { getByPlaceholderText, getByText } = render(
-      <NavigationContainer>  {/* Envolva o componente com NavigationContainer */}
+      <NavigationContainer>
+        {/* Envolva o componente com NavigationContainer */}
         <Login />
-      </NavigationContainer>
+      </NavigationContainer>,
     );
 
     fireEvent.changeText(getByPlaceholderText('usuário'), '@teste');
@@ -87,9 +89,10 @@ describe('Login Screen', () => {
     (apiClient.post as jest.Mock).mockRejectedValueOnce(new Error('Credenciais inválidas'));
 
     const { getByPlaceholderText, getByText } = render(
-      <NavigationContainer>  {/* Envolva o componente com NavigationContainer */}
+      <NavigationContainer>
+        {/* Envolva o componente com NavigationContainer */}
         <Login />
-      </NavigationContainer>
+      </NavigationContainer>,
     );
 
     fireEvent.changeText(getByPlaceholderText('usuário'), '@errado');
