@@ -56,10 +56,13 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         const { token, usuario, msg } = response.data;
 
-        // 💾 Armazena o token JWT e o ID do usuário localmente
+        // 💾 Armazena o token JWT, ID do usuário e preferências (fonte, tema, tamanho) localmente
         await AsyncStorage.multiSet([
           ['token', token],
           ['userId', usuario.id],
+          ['fontOption', usuario.fontOption],
+          ['fontSize', String(usuario.fontSize)], // fontSize é número, armazenar como string
+          ['theme', usuario.theme],
         ]);
 
         // ✅ Notifica sucesso com a mensagem da API
