@@ -9,6 +9,7 @@ interface ButtonHighlightProps {
   fontSizeOverride?: number;
   colorOverride?: string;
   backgroundColorOverride?: string;
+  testID?: string;
 }
 
 const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
@@ -18,12 +19,14 @@ const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
   fontSizeOverride,
   colorOverride,
   backgroundColorOverride,
+  testID,
 }) => {
   const { colors, fontFamily, fontSizes } = useTheme();
 
   return (
     <Pressable
       onPress={onPress}
+      testID={testID}
       style={({ pressed }) => [
         globalStyles.button,
         {

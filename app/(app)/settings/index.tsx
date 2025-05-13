@@ -50,49 +50,49 @@ export default function SettingsScreen() {
   ];
 
   const applyChanges = async () => {
-  try {
-    // Atualiza o estado global
-    setFontFamily(localFontFamily);
-    setColorScheme(localColorScheme);
-    useSettingsStore.setState({ fontSizeMultiplier: localFontSizeMultiplier });
+    try {
+      // Atualiza o estado global
+      setFontFamily(localFontFamily);
+      setColorScheme(localColorScheme);
+      useSettingsStore.setState({ fontSizeMultiplier: localFontSizeMultiplier });
 
-    // Recupera ID do usuário do AsyncStorage
-    const userId = await AsyncStorage.getItem('userId');
-    const token = await AsyncStorage.getItem('token');
+      // Recupera ID do usuário do AsyncStorage
+      const userId = await AsyncStorage.getItem('userId');
+      const token = await AsyncStorage.getItem('token');
 
-    if (!userId || !token) {
-      console.warn('ID do usuário ou token não encontrado.');
-      return;
+      if (!userId || !token) {
+        console.warn('ID do usuário ou token não encontrado.');
+        return;
+      }
+
+      // Monta o corpo da requisição
+      const body = {
+        fontOption: localFontFamily,
+        fontSize: localFontSizeMultiplier,
+        theme: localColorScheme,
+      };
+
+      const response = await fetch(`https://noob-api-1.onrender.com/api/usuarios/preferencias/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Caso sua API exija autenticação
+        },
+        body: JSON.stringify(body),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        Toast.show({ type: 'error', text1: 'Erro', text2: result.msg || 'Falha ao salvar mudanças' });
+      } else {
+        Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Mudanças atualizadas!' });
+      }
+    } catch (error) {
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'Erro inesperado ao salvar' });
+      console.error(error);
     }
-
-    // Monta o corpo da requisição
-    const body = {
-      fontOption: localFontFamily,
-      fontSize: localFontSizeMultiplier,
-      theme: localColorScheme,
-    };
-
-    const response = await fetch(`https://noob-api-1.onrender.com/api/usuarios/preferencias/${userId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Caso sua API exija autenticação
-      },
-      body: JSON.stringify(body),
-    });
-
-    const result = await response.json();
-
-     if (!response.ok) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: result.msg || 'Falha ao salvar mudanças' });
-    } else {
-      Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Mudanças atualizadas!' });
-    }
-  } catch (error) {
-    Toast.show({ type: 'error', text1: 'Erro', text2: 'Erro inesperado ao salvar' });
-    console.error(error);
-  }
-};
+  };
 
   const restoreLocalDefaults = () => {
     setLocalFontFamily('arial');
@@ -113,18 +113,22 @@ export default function SettingsScreen() {
   };
 
   return (
-    <View style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}>
-      {/* Componente Header (cabeçalho) */}
+    <View
+      style={[globalStyles.container, { backgroundColor: previewColors.backgroundBase }]}
+      testID="settings-screen"
+    >
       <Header
         title="Tela de Teste"
         fontFamilyOverride={previewFontFamily}
         fontSizeOverride={fontSizes.base}
         textColorOverride={previewColors.textOnHighlight}
         backgroundColorOverride={previewColors.backgroundHighlight}
+        testID="header"
       />
 
       {/* Seleção de Fonte */}
       <Text
+        testID="label-fonte"
         style={{
           fontFamily: previewFontFamily,
           fontSize: fontSizes.base,
@@ -134,26 +138,30 @@ export default function SettingsScreen() {
         Fonte do corpo:
       </Text>
 
-      <SelectList
-        setSelected={setLocalFontFamily}
-        data={fontOptions}
-        defaultOption={fontOptions.find((f) => f.key === localFontFamily)}
-        search={false}
-        boxStyles={{ marginBottom: 20 }}
-        dropdownTextStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-        inputStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      />
+      <View testID='select-fonte'>
+        <SelectList
+          setSelected={setLocalFontFamily}
+          data={fontOptions}
+          defaultOption={fontOptions.find((f) => f.key === localFontFamily)}
+          search={false}
+          boxStyles={{ marginBottom: 20 }}
+          dropdownTextStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+          inputStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        />
+      </View>
+
 
       {/* Ajuste de Tamanho da Fonte */}
       <Text
+        testID="label-tamanho-fonte"
         style={{
           fontFamily: previewFontFamily,
           fontSize: fontSizes.base,
@@ -164,19 +172,20 @@ export default function SettingsScreen() {
       </Text>
 
       <View
+        testID="controle-tamanho-fonte"
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
           marginBottom: 20,
         }}
       >
-        <ButtonSemiHighlight title="A-" onPress={handleDecrease} />
-
-        <ButtonSemiHighlight title="A+" onPress={handleIncrease} />
+        <ButtonSemiHighlight title="A-" onPress={handleDecrease} testID="btn-diminuir-fonte" />
+        <ButtonSemiHighlight title="A+" onPress={handleIncrease} testID="btn-aumentar-fonte" />
       </View>
 
       {/* Seleção de Tema de Cores */}
       <Text
+        testID="label-tema"
         style={{
           fontFamily: previewFontFamily,
           fontSize: fontSizes.base,
@@ -186,23 +195,27 @@ export default function SettingsScreen() {
         Tema de cores:
       </Text>
 
-      <SelectList
-        setSelected={setLocalColorScheme}
-        data={themeOptions}
-        defaultOption={themeOptions.find((t) => t.key === localColorScheme)}
-        search={false}
-        boxStyles={{ marginBottom: 20 }}
-        dropdownTextStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-        inputStyles={{
-          fontFamily: previewFontFamily,
-          fontSize: fontSizes.base,
-          color: previewColors.textOnBase,
-        }}
-      />
+      <View testID="select-tema">
+
+        <SelectList
+          setSelected={setLocalColorScheme}
+          data={themeOptions}
+          defaultOption={themeOptions.find((t) => t.key === localColorScheme)}
+          search={false}
+          boxStyles={{ marginBottom: 20 }}
+          dropdownTextStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+          inputStyles={{
+            fontFamily: previewFontFamily,
+            fontSize: fontSizes.base,
+            color: previewColors.textOnBase,
+          }}
+        />
+      </View>
+
 
       {/* Botões de ação */}
       <ButtonHighlight
@@ -212,6 +225,7 @@ export default function SettingsScreen() {
         fontSizeOverride={fontSizes.base}
         colorOverride={previewColors.textOnHighlight}
         backgroundColorOverride={previewColors.backgroundHighlight}
+        testID="btn-confirmar"
       />
 
       <ButtonSemiHighlight
@@ -221,6 +235,7 @@ export default function SettingsScreen() {
         fontSizeOverride={fontSizes.base}
         colorOverride={previewColors.textOnSemiHighlight}
         backgroundColorOverride={previewColors.backgroundSemiHighlight}
+        testID="btn-restaurar"
       />
 
       <ButtonSemiHighlight
@@ -230,6 +245,7 @@ export default function SettingsScreen() {
         fontSizeOverride={fontSizes.base}
         colorOverride={previewColors.textOnSemiHighlight}
         backgroundColorOverride={previewColors.backgroundSemiHighlight}
+        testID="btn-voltar"
       />
     </View>
   );

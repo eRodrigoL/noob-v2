@@ -110,6 +110,7 @@ const Login: React.FC = () => {
           Apelido:
         </Text>
         <TextInput
+          testID="input-apelido"
           style={{
             backgroundColor: colors.backgroundSemiHighlight,
             color: colors.textOnSemiHighlight,
@@ -130,6 +131,7 @@ const Login: React.FC = () => {
           Senha:
         </Text>
         <TextInput
+          testID="input-senha"
           style={{
             backgroundColor: colors.backgroundSemiHighlight,
             color: colors.textOnSemiHighlight,

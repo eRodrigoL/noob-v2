@@ -9,6 +9,7 @@ interface ButtonSemiHighlightProps {
   fontSizeOverride?: number;
   colorOverride?: string;
   backgroundColorOverride?: string;
+  testID?: string;
 }
 
 const ButtonSemiHighlight: React.FC<ButtonSemiHighlightProps> = ({
@@ -18,12 +19,14 @@ const ButtonSemiHighlight: React.FC<ButtonSemiHighlightProps> = ({
   fontSizeOverride,
   colorOverride,
   backgroundColorOverride,
+  testID,
 }) => {
   const { colors, fontFamily, fontSizes } = useTheme();
 
   return (
     <Pressable
       onPress={onPress}
+      testID={testID}
       style={({ pressed }) => [
         globalStyles.button,
         {

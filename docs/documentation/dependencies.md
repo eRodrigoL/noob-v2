@@ -37,6 +37,9 @@ npm install babel-plugin-module-resolver --save-dev
 npm install -g expo
 # Atual:
 npm install react-native-toast-message
+npm install --save-dev jest @testing-library/react-native @testing-library/jest-native jest-expo
+npm install --save-dev @types/jest ts-jest
+npm install --save-dev cypress
 ```
 
 ---

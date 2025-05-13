@@ -14,6 +14,7 @@ interface HeaderProps {
   fontSizeOverride?: number;
   textColorOverride?: string;
   backgroundColorOverride?: string;
+  testID?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -22,6 +23,7 @@ const Header: React.FC<HeaderProps> = ({
   fontSizeOverride,
   textColorOverride,
   backgroundColorOverride,
+  testID,
 }) => {
   const { colors, fontFamily, fontSizes } = useTheme();
 
@@ -107,6 +109,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <View
+      testID={testID}
       style={[
         stylesHeader.headerContainer,
         { backgroundColor: backgroundColorOverride || colors.backgroundHighlight },
