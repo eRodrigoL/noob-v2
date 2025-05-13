@@ -40,7 +40,7 @@ describe('Tela de Preferências Visuais', () => {
     // Confirma as mudanças
     cy.get('[data-testid="btn-confirmar"]').click();
 
-    cy.get('[data-testid="select-fonte"]').should('contain.text', 'Times New Roman');
+    cy.get('[data-testid="select-fonte"]').should('contain.text', 'Roboto');
     cy.get('[data-testid="select-tema"]').should('contain.text', 'Escuro');
 
   });
